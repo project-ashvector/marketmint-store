@@ -1,5 +1,19 @@
 [
   {
+    "id": "70c8a60c-567b-434c-a377-44fc759db67c",
+    "name": "Meal Planning Organization Tracker Toolkit",
+    "slug": "meal-planning-organization-tracker-toolkit",
+    "description": "A practical digital toolkit for households trying to reduce weekday decision fatigue. It turns meal planning organization into a repeatable workflow with editable trackers, printable HTML pages, plain-text instructions, and a quick-start guide. Files are designed to work with common spreadsheet and web-browser tools without a subscription.",
+    "price": 10.79,
+    "currency": "USD",
+    "image": "assets/products/meal-planning-organization-tracker-toolkit.png",
+    "url": "http://ebedesigns.online/products/meal-planning-organization-tracker-toolkit",
+    "status": "published",
+    "productType": "tracker pack",
+    "quality": 100,
+    "variantId": ""
+  },
+  {
     "id": "7ccf9cc5-a27f-48b2-93e6-457072cc7b27",
     "name": "Study Session Planning 90-Day Action Calendar",
     "slug": "study-session-planning-90-day-action-calendar",
