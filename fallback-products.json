@@ -1,5 +1,19 @@
 [
   {
+    "id": "7ccf9cc5-a27f-48b2-93e6-457072cc7b27",
+    "name": "Study Session Planning 90-Day Action Calendar",
+    "slug": "study-session-planning-90-day-action-calendar",
+    "description": "A practical digital toolkit for students balancing assignments and revision. It turns study session planning into a repeatable workflow with editable trackers, printable HTML pages, plain-text instructions, and a quick-start guide. Files are designed to work with common spreadsheet and web-browser tools without a subscription.",
+    "price": 15.51,
+    "currency": "USD",
+    "image": "assets/products/study-session-planning-90-day-action-calendar.png",
+    "url": "http://ebedesigns.online/products/study-session-planning-90-day-action-calendar",
+    "status": "published",
+    "productType": "content calendar",
+    "quality": 100,
+    "variantId": ""
+  },
+  {
     "id": "cacf2d36-b2e2-441e-9f72-c8b226d3a125",
     "name": "Job Search Organization 90-Day Action Calendar",
     "slug": "job-search-organization-90-day-action-calendar",
