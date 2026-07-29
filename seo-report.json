@@ -1,15 +1,15 @@
 {
-  "builtAt": "2026-07-29T23:29:29+00:00",
-  "publicBase": "https://ebedesigns.online",
-  "productPages": 36,
+  "builtAt": "2026-07-29T23:31:48+00:00",
+  "publicBase": "https://project-ashvector.github.io/marketmint-store",
+  "productPages": 38,
   "sitemap": true,
   "structuredData": true,
   "mobileOptimized": true,
   "mobileProfessionalV2": true,
   "mobileDesignVersion": 6,
-  "assetVersion": "20260729232929",
+  "assetVersion": "20260729233148",
   "backgroundArt": true,
   "revenueTrackingEnabled": false,
   "indexNowEnabled": true,
-  "promotionKits": 36
+  "promotionKits": 38
 }
