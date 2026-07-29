@@ -1,5 +1,20 @@
 [
   {
+    "id": "adedb634-367e-4265-8688-7372d847d9d3",
+    "name": "Habit Reflection Tracker Toolkit",
+    "slug": "habit-reflection-tracker-toolkit",
+    "description": "A practical digital toolkit for people who want a simple, non-medical reflection routine. It turns habit reflection into a repeatable workflow with editable trackers, printable HTML pages, plain-text instructions, and a quick-start guide. Files are designed to work with common spreadsheet and web-browser tools without a subscription.",
+    "price": 15.19,
+    "currency": "USD",
+    "image": "assets/products/habit-reflection-tracker-toolkit.png",
+    "url": "https://ebedesigns-shop.fourthwall.com/products/habit-reflection-tracker-toolkit",
+    "status": "published",
+    "productType": "tracker pack",
+    "quality": 100,
+    "variantId": "",
+    "pageUrl": "products/habit-reflection-tracker-toolkit/"
+  },
+  {
     "id": "70c8a60c-567b-434c-a377-44fc759db67c",
     "name": "Meal Planning Organization Tracker Toolkit",
     "slug": "meal-planning-organization-tracker-toolkit",
