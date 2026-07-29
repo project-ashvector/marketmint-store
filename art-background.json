@@ -1,10 +1,10 @@
 {
-  "builtAt": "2026-07-29T23:31:48+00:00",
+  "builtAt": "2026-07-29T23:34:22+00:00",
   "enabled": true,
   "randomizedOnBuild": true,
   "desktopDensity": 9,
   "phoneDensity": 3,
-  "opacity": 0.13,
+  "opacity": 0.18,
   "assets": [
     "ctrl-alt-delinquent.webp",
     "404-sleep-not-found.webp",
