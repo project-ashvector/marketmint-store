@@ -133,5 +133,20 @@
     "quality": 100,
     "variantId": "3230ae57-c8f4-426f-8fae-a58c7e2fdcf1",
     "pageUrl": "products/build-once-reuse-forever-graphic-t-shirt/"
+  },
+  {
+    "id": "cc37c76c-5766-4422-a3c7-4d103f6fb809",
+    "name": "Project: Ash Vector Graphic T-Shirt",
+    "slug": "project-ash-vector-graphic-t-shirt",
+    "description": "",
+    "price": 24.4,
+    "currency": "USD",
+    "image": "https://imgproxy.fourthwall.dev/Qn22WeQ2m80xUwT_rE3aSWHzFgX07lhShKz7aqK599c/w:720/sm:1/enc/OUyXnphYKa4c-Lvl/4Z1MXpzJHthivFSV/g9TvEf9aSpn9XXeF/QjjqU1APDRpyoYZN/JgZqwuCQouypuHED/sgvNEAISuVz2sZor/XOBry3_Bwm37nwNO/_hLWbMeXx_dt38he/_w7XoOigfb0ELogR/ikfk49sE7_poJGRA/9O1uGCgY_W276xfA/BDIAkw4RHDDI1I9A/kt3IS1CPvR6PycJK/wPh3pyTgO2fCb9mg/waSIzcKTy1U.jpg",
+    "url": "https://ebedesigns-shop.fourthwall.com/products/project-ash-vector-graphic-t-shirt",
+    "status": "published",
+    "productType": "merchandise",
+    "quality": 100,
+    "variantId": "65639d11-4aa1-4202-8615-125e7cd308a2",
+    "pageUrl": "products/project-ash-vector-graphic-t-shirt/"
   }
 ]
