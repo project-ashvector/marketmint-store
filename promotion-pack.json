@@ -254,5 +254,37 @@
     "checkout": "https://ebedesigns-shop.fourthwall.com/products/started-from-the-bottom-now-im-mids-sticker",
     "image": "https://imgproxy.fourthwall.dev/mDQI_xDmEMXnaRuiS4_NtYsgSGTHhIwjpqs_8TP4Wvo/w:720/sm:1/enc/RY9Mhb4MVlAz8l1Q/5AOvQzyqfRCpMR5y/pVSCcxMFS7AOf_Og/fXNcPMzg8mcIdasu/fq4LcLM5kg5JYcs6/gRBWx0V1Z3OO5VxH/-oSCW0sQvE0HV3Qb/nlz_Dh0FZDYhf2cu/ApT2nl_5c83BK1f-/IXr7LHHO_3Z9R21d/hQwS8-LmRA2l34gv/amhEO7kZ2jFuiraH/9HuCbTgivPB9uFzN/fDoJb81JgqeImd6z/U6vbretM3hw.jpg",
     "price": 5.29
+  },
+  {
+    "name": "GOONGOBLINS GRAPHIC T-SHIRT",
+    "slug": "goongoblins-graphic-t-shirt",
+    "landingPage": "https://ebedesigns.online/products/goongoblins-graphic-t-shirt/",
+    "checkout": "https://ebedesigns-shop.fourthwall.com/products/goongoblins-graphic-t-shirt",
+    "image": "https://imgproxy.fourthwall.dev/eIbSjtfMBL1JjDjXV2Jj_LXh1dpgKT5epvRSTHSiupk/w:720/sm:1/enc/wlLQNfEDGQiMejfD/8LkrOOsWohm5-Q_B/4Ee-WCGuLdA2l8_2/k5arovzbximMVTqo/81aAgo3ZFDB3lZ1c/owfS8CwXOHjUUv6W/-N-5AR1QDnDU-8o0/utAGpJpMZyboUkvM/HDOqtUdsS-6id9bZ/6LdKxJ1rnvTXzbwS/fOoBMLl62yGHJJZd/Bsmv3T_CksuYhZHJ/u-Z6-qaSfcjvOiac/ZNyE1bpWsXF3NlIJ/GM_c3QbJJyQ.jpg",
+    "price": 29.38
+  },
+  {
+    "name": "GOONGOBLINS CAP",
+    "slug": "goongoblins-cap",
+    "landingPage": "https://ebedesigns.online/products/goongoblins-cap/",
+    "checkout": "https://ebedesigns-shop.fourthwall.com/products/goongoblins-cap",
+    "image": "https://imgproxy.fourthwall.dev/Tw0k0FPfRkEqXRqNRjHEZkP8OZvmjZ0oDuyfnF6G3g4/w:720/sm:1/enc/hkojZ3fzGeBCVo16/MFy9IaAzuBs5E65_/vBuB5foNzApAzG2B/7tmHgcB5pU7fULbO/7xAJhcyP0D10CacS/mFMmPrWxk7WS7twP/DHUYSe0obqmr9kEG/YY6qvNbrh6pVB2Z3/cIvTkV3ix_7jAI3d/VeDXTtYZTiXfczOk/F8P0JzzAgjJBMd_s/LX-LvDuBp-_c3Oox/W4lr-2DAbwVKC0Ug/78knENRlnCYDEOvs/ZOku1LCCPBs.jpg",
+    "price": 27.5
+  },
+  {
+    "name": "THE GOON BUCKET",
+    "slug": "the-goon-bucket",
+    "landingPage": "https://ebedesigns.online/products/the-goon-bucket/",
+    "checkout": "https://ebedesigns-shop.fourthwall.com/products/the-goon-bucket",
+    "image": "https://imgproxy.fourthwall.dev/_4afrmuZGbZ-p5wgaVWBMezBfV2RkPqsvGANOpGw7FU/w:720/sm:1/enc/v_d_gP6nByBSrKH5/RcOO0jVe2ScQbckx/g4SG1VCTPuAYmHpS/SS4yippBabnZXpCk/WJXeorRh5jn89I9i/rYc7nJMgMWgkgb9-/FVR8z8C6t8DKqf2W/FNYcB55JYBy9C7Tg/D909BeWhwZ2FHMQf/NT3tPP_XDaRohbn0/dIvtS1sr4NP1EJRK/3hriJYc5zBPBndf7/2YQaKo7OdWBIK6LS/nr9DZIbUhgDeUvjC/4HtIwJxbmb0.jpg",
+    "price": 20.29
+  },
+  {
+    "name": "STARTED FROM THE BUCKET",
+    "slug": "started-from-the-bucket",
+    "landingPage": "https://ebedesigns.online/products/started-from-the-bucket/",
+    "checkout": "https://ebedesigns-shop.fourthwall.com/products/started-from-the-bucket",
+    "image": "https://imgproxy.fourthwall.dev/cDT4OPDixVYt1OaZnu9ey61z60Ffg1jxYIqT88l7Jnk/w:720/sm:1/enc/o6YfJwO5WLhQCRKI/d2VK1kqe7CdDYaie/8RndMqPVqqMvyZZA/Kksxuc5UxfPPOwBn/iJF30MwBHrzFegu8/Kp9u_j18p4-pYV5z/GV7fTRmL_bJ26kFO/I-qA7Xx-u-72VFdT/pBYJGuk-ajBS1gzX/ffvdyBMLwT7GZx3f/-TxTBveOAPOilQUA/Zuy6B09K64A-MO3l/kGP85aCiuZanwgpi/yrjk70Nci5kYaNdD/cNvw-eowe14.jpg",
+    "price": 20.29
   }
 ]
