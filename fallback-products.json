@@ -103,5 +103,20 @@
     "quality": 100,
     "variantId": "ef4d85b2-20ad-4d95-bee9-142f649718b0",
     "pageUrl": "products/practical-downloads-less-busywork-graphic-t-shirt/"
+  },
+  {
+    "id": "668ea208-2ce4-495d-8b91-f6ad40b4fb16",
+    "name": "Less Chaos. More Progress. Sticker",
+    "slug": "less-chaos-more-progress-sticker",
+    "description": "<p>A clean sticker concept featuring the original slogan &#39;Less Chaos. More Progress.&#39; in the MarketMint purple-to-cyan visual system.</p>",
+    "price": 5.29,
+    "currency": "USD",
+    "image": "https://imgproxy.fourthwall.dev/xKyeJuhtfvDhLL1OZtTWUPicUwXFrVi4ecO0iIWbWOQ/w:720/sm:1/enc/dqHIGaE4T9jDcbTq/Wbd_8NI5gTkhdq80/i5Objq-4agzLxxjd/pC543Kjl3eNgk8C2/9_A3bQc28tIgSQ9L/zla5eZhJTJV0lBMM/FTHFCkuMP3-sv2nF/2-ef3usL7Rd5m2_z/dKfgTklTDmBJGyKY/ffoMt6muAxtlrYsF/NeLYZ7l0GBmlV2io/SEiL87-Elt0BDNQA/AFY0LcoooIaZm-r5/MYcgy13zXrXQLO1T/J81wIsYRwaA.jpg",
+    "url": "https://ebedesigns-shop.fourthwall.com/products/less-chaos-more-progress-sticker",
+    "status": "published",
+    "productType": "merchandise",
+    "quality": 100,
+    "variantId": "e972df36-9283-47ab-902d-2df52fca1462",
+    "pageUrl": "products/less-chaos-more-progress-sticker/"
   }
 ]
