@@ -148,5 +148,50 @@
     "quality": 100,
     "variantId": "65639d11-4aa1-4202-8615-125e7cd308a2",
     "pageUrl": "products/project-ash-vector-graphic-t-shirt/"
+  },
+  {
+    "id": "3aa42bbb-6133-4c42-9bf9-936171a69a06",
+    "name": "CTRL + ALT + DELINQUENT GRAPHIC T-SHIRT",
+    "slug": "ctrl-alt-delinquent-graphic-t-shirt",
+    "description": "<p>A rebellious cyberpunk hacker character with bold graffiti energy, made for coders, gamers, and digital troublemakers.</p>",
+    "price": 24.4,
+    "currency": "USD",
+    "image": "https://imgproxy.fourthwall.dev/Z1mok8eTBpvVDQCERgJ8n-_MQ9P20WWDZbOmWn3FOlU/w:720/sm:1/enc/PJz2gnafxZrqXJSA/3tX5T6fJKyyuyO2D/Ww9VNoUBOnbgVb59/MxSPMWkEhFIWBq8T/ggUjguO7gLqdf0PK/gP6bLU-Sn4touPeC/y16hkRPq2fVMK7rD/d3K4AZqjCS6PFr8T/hkQ0xteqRZZ1x1Iy/BIoVHy_-C4c_JD7u/D40BZ7GKPLlmx_1A/RmFPW0-cPR4w19Qb/2MyReB2rhqh7u2_g/7b3c_mEaXj-lKgLF/W2Vh6Jr2TtU.jpg",
+    "url": "https://ebedesigns-shop.fourthwall.com/products/ctrl-alt-delinquent-graphic-t-shirt",
+    "status": "published",
+    "productType": "merchandise",
+    "quality": 100,
+    "variantId": "aa012a61-d503-4240-a4d5-76ed4c1b044d",
+    "pageUrl": "products/ctrl-alt-delinquent-graphic-t-shirt/"
+  },
+  {
+    "id": "32ef148f-5ad1-482c-8234-5358896f5dd5",
+    "name": "404: Sleep Not Found GRAPHIC T-SHIRT",
+    "slug": "404-sleep-not-found-graphic-t-shirt",
+    "description": "<p>A caffeine-powered hacker raccoon for programmers, gamers, creators, and anyone running on zero sleep.</p>",
+    "price": 24.4,
+    "currency": "USD",
+    "image": "https://imgproxy.fourthwall.dev/T6z2a0ee8fnRuDyDnOcirds7kcJCLZDtDmuxMeAj1EU/w:720/sm:1/enc/3OwijmCZMv2l7Nn3/Orx_eVgZmQqsDmzC/j-XkSdWrTyHHAxNx/xhgfpoREo9v5fiTG/KC43HGLNL0KQ2EQt/WvR7dloYpx-1Nd7V/L7Zsuoza9hvdcNUK/DQ5hMWOdfvm8d6Ze/fyb9O5qDQ6Dklqi3/m34R9SsmB6-FsgeO/iClEdvudm_WqrsIQ/0e-HUFMABDmcukSy/bDPGP74E0ojSNX4i/I3Dnw6y3_VZ6zgPz/uYaXOHlyVKk.jpg",
+    "url": "https://ebedesigns-shop.fourthwall.com/products/404-sleep-not-found-graphic-t-shirt",
+    "status": "published",
+    "productType": "merchandise",
+    "quality": 100,
+    "variantId": "60ef53d4-f7ab-4fd9-a3fe-9654631f6953",
+    "pageUrl": "products/404-sleep-not-found-graphic-t-shirt/"
+  },
+  {
+    "id": "d6287824-622a-4575-9f3c-579c093950d4",
+    "name": "HACK SQUAD GRAPHIC T-SHIRT",
+    "slug": "hack-squad-graphic-t-shirt",
+    "description": "<p>a bold graffiti-style crew of mischievous tech characters, packed with neon hacker energy and designed to pop on shirts, hoodies, and stickers.</p>",
+    "price": 24.4,
+    "currency": "USD",
+    "image": "https://imgproxy.fourthwall.dev/KAQP7xt0Ozea6hjBuGWUZcVJLEo4IpMltEHaoTZbIBw/w:720/sm:1/enc/_K09ASyPOiicF568/8OcVmpVv0x22xVYU/6hv0f2mbKLIMZXvr/oLuJtnnn569Rp7wQ/Gly0bDnzTSQY3FAl/BnJNY5GzVcrY0WBp/3QysWjRvL6z0C0EG/03z-4JHP45_8nFMf/U_XeAgfM5r2R3ENA/CG8SN1gsCzw4WDQ5/36SK8nltZaJO9x3-/3Nykfp8wQDNxcwM-/eU0y-INQb6ZVogiO/zNRF4wGAgMG0dAfv/Wi-M_yg3P1k.jpg",
+    "url": "https://ebedesigns-shop.fourthwall.com/products/hack-squad-graphic-t-shirt",
+    "status": "published",
+    "productType": "merchandise",
+    "quality": 100,
+    "variantId": "04309076-a0c2-4135-99d3-52934e4520d7",
+    "pageUrl": "products/hack-squad-graphic-t-shirt/"
   }
 ]
