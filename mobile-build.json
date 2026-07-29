@@ -1,0 +1,15 @@
+{
+  "builtAt": "2026-07-29T09:33:03+00:00",
+  "assetVersion": "20260729093303",
+  "professionalPhoneDesign": true,
+  "breakpoints": [
+    900,
+    620,
+    390
+  ],
+  "safeAreaSupport": true,
+  "touchTargets": true,
+  "mobileNavigation": true,
+  "singleColumnCatalog": true,
+  "stickyMobileBuyBar": true
+}
