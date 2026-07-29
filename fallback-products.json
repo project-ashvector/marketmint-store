@@ -11,7 +11,8 @@
     "status": "published",
     "productType": "tracker pack",
     "quality": 100,
-    "variantId": ""
+    "variantId": "",
+    "pageUrl": "products/meal-planning-organization-tracker-toolkit/"
   },
   {
     "id": "7ccf9cc5-a27f-48b2-93e6-457072cc7b27",
@@ -25,7 +26,8 @@
     "status": "published",
     "productType": "content calendar",
     "quality": 100,
-    "variantId": ""
+    "variantId": "",
+    "pageUrl": "products/study-session-planning-90-day-action-calendar/"
   },
   {
     "id": "cacf2d36-b2e2-441e-9f72-c8b226d3a125",
@@ -39,7 +41,8 @@
     "status": "published",
     "productType": "content calendar",
     "quality": 100,
-    "variantId": ""
+    "variantId": "",
+    "pageUrl": "products/job-search-organization-90-day-action-calendar/"
   },
   {
     "id": "db17fb51-4c94-4c53-8e24-9ecf4209a003",
@@ -53,6 +56,7 @@
     "status": "published",
     "productType": "checklist bundle",
     "quality": 100,
-    "variantId": ""
+    "variantId": "",
+    "pageUrl": "products/digital-file-organization-checklist-bundle/"
   }
 ]
