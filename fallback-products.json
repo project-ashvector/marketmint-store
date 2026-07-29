@@ -1,5 +1,20 @@
 [
   {
+    "id": "be08f4cc-6251-4b88-b094-bda1734788cf",
+    "name": "Moving Checklist Organization Planner Pack",
+    "slug": "moving-checklist-organization-planner-pack",
+    "description": "A practical digital toolkit for renters and families preparing for a move. It turns moving checklist organization into a repeatable workflow with editable trackers, printable HTML pages, plain-text instructions, and a quick-start guide. Files are designed to work with common spreadsheet and web-browser tools without a subscription.",
+    "price": 14.39,
+    "currency": "USD",
+    "image": "assets/products/moving-checklist-organization-planner-pack.png",
+    "url": "https://ebedesigns-shop.fourthwall.com/products/moving-checklist-organization-planner-pack",
+    "status": "published",
+    "productType": "merchandise",
+    "quality": 100,
+    "variantId": "cd0af9c4-dfaf-4fd0-86e9-d0556e61ecf4",
+    "pageUrl": "products/moving-checklist-organization-planner-pack/"
+  },
+  {
     "id": "adedb634-367e-4265-8688-7372d847d9d3",
     "name": "Habit Reflection Tracker Toolkit",
     "slug": "habit-reflection-tracker-toolkit",
