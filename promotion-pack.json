@@ -206,5 +206,29 @@
     "checkout": "https://ebedesigns-shop.fourthwall.com/products/send-nodes-graphic-t-shirt",
     "image": "https://imgproxy.fourthwall.dev/raRK7iqJgZshMCMbNBpGinA1JeMSbIxR7oEbT8fIzzU/w:720/sm:1/enc/zdUqKzFqsw6k8F5X/JIvJ86eMdQmNBHkc/W_AnJJ-kdPhpdh9_/x3hfjOfCzm6e5O8p/mSyHAEaA-MXmjVjt/liYM2E-x8lwXiSdj/3EVAHje_WxzXbTfP/cA4JGG2JJbWEBcId/L5F-PAYE4njMSr2q/HJl31m5abKjRUxY7/3dDWL_YnLr0861ry/FL60BqRHIZYZFROq/QS_0tlvlN0ufsjEv/AH60jYkvLZz0Sj9n/sfMCyJJKniE.jpg",
     "price": 24.4
+  },
+  {
+    "name": "LOWERCASE k ENERGY GRAPHIC T-SHIRT",
+    "slug": "lowercase-k-energy-graphic-t-shirt",
+    "landingPage": "https://ebedesigns.online/products/lowercase-k-energy-graphic-t-shirt/",
+    "checkout": "https://ebedesigns-shop.fourthwall.com/products/lowercase-k-energy-graphic-t-shirt",
+    "image": "https://imgproxy.fourthwall.dev/BNPXFMcoSOBazEa0Eatehkxz44aT8BZIuOrfxHrgheI/w:720/sm:1/enc/obulHdDKebmhS2v5/IgmbObQE3AGJFZHq/rV9unfvmZvHcmDgT/oh3NK0kKR--v1_ml/LUiGrLYtQKdx1-dL/UMN9qBIql52ZZgbf/9ycBH6uz92QYklNr/_ni9HYVlIGFSFUJO/jZvsKDwNIRLpALop/ym5pYQDCl5OLgZbV/nN90dx6IaM_qwIRN/SGCdk0mRJ3qwz66k/lrvXtV9sTMdhNjt-/QylMKvMZWIGDDXH1/gnRiCezFetg.jpg",
+    "price": 29.38
+  },
+  {
+    "name": "LOWERCASE k CAP",
+    "slug": "lowercase-k-cap",
+    "landingPage": "https://ebedesigns.online/products/lowercase-k-cap/",
+    "checkout": "https://ebedesigns-shop.fourthwall.com/products/lowercase-k-cap",
+    "image": "https://imgproxy.fourthwall.dev/a3YwQi6bkwkK2M3iyVJpE7fEXXlnjCZb8vS9ej7vSCo/w:720/sm:1/enc/PAVBv04QKscW1mzm/ABR3EG-kHsclgJyw/jORbqMFAMjCnhoWI/dXgLMtqHHrebh54J/8I8io7kFTLiTHVEI/H428de5okjbW2xJO/IH_bMMUYKC39TXea/-P03KH0VxblRkvu0/VvNECgmxdZ12qKeH/aoLrX1gHUiPeX-h7/cADGoUc-QDd98lOa/aj26R3r4ZEYimQMU/hcLJ2TztSgHk_F2Y/dEeM6Fr_pJEmwreH/dQEZjtJMhcw.jpg",
+    "price": 27.5
+  },
+  {
+    "name": "LOWERCASE k ENERGY STICKER",
+    "slug": "lowercase-k-energy-sticker",
+    "landingPage": "https://ebedesigns.online/products/lowercase-k-energy-sticker/",
+    "checkout": "https://ebedesigns-shop.fourthwall.com/products/lowercase-k-energy-sticker",
+    "image": "https://imgproxy.fourthwall.dev/Gn1Jm8tpxcdm5XbGJzsXlRQMESXPS0vnZq7--6xyRCc/w:720/sm:1/enc/wywmHModYIuC644t/X7f0qVnP-TubUb_B/SRNjUrm1r8srm6d9/J09cZev7A-9kbnq7/VNT7mcbbPVt2G-YQ/KooFHfrM_LT07G_V/wX9yYkbxI2rXFHAN/md0KOVGllSf6YI7K/YO-GPfoRkRdqjJEl/jMRjKqKTSBhvH5Pj/kRLrUH8K9LMLXvKV/UPRjMKDKVlFZzX_F/HG9l5ro-ltj2csHr/Ha-oqIdjEvB3fOqn/xr7183XXMz0.jpg",
+    "price": 5.29
   }
 ]

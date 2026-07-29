@@ -388,5 +388,50 @@
     "quality": 100,
     "variantId": "5844bee6-9e34-452d-ad81-1e72253d8d26",
     "pageUrl": "products/send-nodes-graphic-t-shirt/"
+  },
+  {
+    "id": "6a6df92b-f88d-4166-8091-a60e948b8d83",
+    "name": "LOWERCASE k ENERGY GRAPHIC T-SHIRT",
+    "slug": "lowercase-k-energy-graphic-t-shirt",
+    "description": "",
+    "price": 29.38,
+    "currency": "USD",
+    "image": "https://imgproxy.fourthwall.dev/BNPXFMcoSOBazEa0Eatehkxz44aT8BZIuOrfxHrgheI/w:720/sm:1/enc/obulHdDKebmhS2v5/IgmbObQE3AGJFZHq/rV9unfvmZvHcmDgT/oh3NK0kKR--v1_ml/LUiGrLYtQKdx1-dL/UMN9qBIql52ZZgbf/9ycBH6uz92QYklNr/_ni9HYVlIGFSFUJO/jZvsKDwNIRLpALop/ym5pYQDCl5OLgZbV/nN90dx6IaM_qwIRN/SGCdk0mRJ3qwz66k/lrvXtV9sTMdhNjt-/QylMKvMZWIGDDXH1/gnRiCezFetg.jpg",
+    "url": "https://ebedesigns-shop.fourthwall.com/products/lowercase-k-energy-graphic-t-shirt",
+    "status": "published",
+    "productType": "merchandise",
+    "quality": 100,
+    "variantId": "ab6e72b7-c264-4867-bfe2-f1f29cbb021d",
+    "pageUrl": "products/lowercase-k-energy-graphic-t-shirt/"
+  },
+  {
+    "id": "89337b75-5f4c-4c7c-8bc2-b83e22740b12",
+    "name": "LOWERCASE k CAP",
+    "slug": "lowercase-k-cap",
+    "description": "",
+    "price": 27.5,
+    "currency": "USD",
+    "image": "https://imgproxy.fourthwall.dev/a3YwQi6bkwkK2M3iyVJpE7fEXXlnjCZb8vS9ej7vSCo/w:720/sm:1/enc/PAVBv04QKscW1mzm/ABR3EG-kHsclgJyw/jORbqMFAMjCnhoWI/dXgLMtqHHrebh54J/8I8io7kFTLiTHVEI/H428de5okjbW2xJO/IH_bMMUYKC39TXea/-P03KH0VxblRkvu0/VvNECgmxdZ12qKeH/aoLrX1gHUiPeX-h7/cADGoUc-QDd98lOa/aj26R3r4ZEYimQMU/hcLJ2TztSgHk_F2Y/dEeM6Fr_pJEmwreH/dQEZjtJMhcw.jpg",
+    "url": "https://ebedesigns-shop.fourthwall.com/products/lowercase-k-cap",
+    "status": "published",
+    "productType": "merchandise",
+    "quality": 100,
+    "variantId": "adf9952e-cfcb-4779-bdac-594c5af66532",
+    "pageUrl": "products/lowercase-k-cap/"
+  },
+  {
+    "id": "5ccac1bf-7f10-4896-b0ea-476e9763c0b4",
+    "name": "LOWERCASE k ENERGY STICKER",
+    "slug": "lowercase-k-energy-sticker",
+    "description": "",
+    "price": 5.29,
+    "currency": "USD",
+    "image": "https://imgproxy.fourthwall.dev/Gn1Jm8tpxcdm5XbGJzsXlRQMESXPS0vnZq7--6xyRCc/w:720/sm:1/enc/wywmHModYIuC644t/X7f0qVnP-TubUb_B/SRNjUrm1r8srm6d9/J09cZev7A-9kbnq7/VNT7mcbbPVt2G-YQ/KooFHfrM_LT07G_V/wX9yYkbxI2rXFHAN/md0KOVGllSf6YI7K/YO-GPfoRkRdqjJEl/jMRjKqKTSBhvH5Pj/kRLrUH8K9LMLXvKV/UPRjMKDKVlFZzX_F/HG9l5ro-ltj2csHr/Ha-oqIdjEvB3fOqn/xr7183XXMz0.jpg",
+    "url": "https://ebedesigns-shop.fourthwall.com/products/lowercase-k-energy-sticker",
+    "status": "published",
+    "productType": "merchandise",
+    "quality": 100,
+    "variantId": "c0606596-8c5a-4fc3-828d-8fb555c86f29",
+    "pageUrl": "products/lowercase-k-energy-sticker/"
   }
 ]
