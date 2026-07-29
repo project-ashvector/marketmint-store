@@ -1,11 +1,13 @@
 {
-  "builtAt": "2026-07-29T09:33:38+00:00",
-  "assetVersion": "20260729093338",
+  "builtAt": "2026-07-29T09:49:19+00:00",
+  "assetVersion": "20260729094919",
   "professionalPhoneDesign": true,
+  "mobileDesignVersion": 4,
   "breakpoints": [
     900,
     620,
-    390
+    390,
+    350
   ],
   "safeAreaSupport": true,
   "touchTargets": true,
