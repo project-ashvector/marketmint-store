@@ -1,10 +1,12 @@
 {
-  "builtAt": "2026-07-29T06:34:56+00:00",
+  "builtAt": "2026-07-29T08:37:17+00:00",
   "publicBase": "https://ebedesigns.online",
   "productPages": 9,
   "sitemap": true,
   "structuredData": true,
   "mobileOptimized": true,
+  "mobileProfessionalV2": true,
+  "revenueTrackingEnabled": false,
   "indexNowEnabled": true,
   "promotionKits": 9
 }
