@@ -358,5 +358,20 @@
     "quality": 100,
     "variantId": "02aaf378-cb5e-4a6f-9e71-63ddf95dcdef",
     "pageUrl": "products/debug-cap/"
+  },
+  {
+    "id": "272e2e3e-30a3-4c66-8382-8f3be354675f",
+    "name": "CAPS LOCK CHAOS GRAPHIC T-SHIRT",
+    "slug": "caps-lock-chaos-graphic-t-shirt",
+    "description": "",
+    "price": 24.4,
+    "currency": "USD",
+    "image": "https://imgproxy.fourthwall.dev/qs9i58hMBR0GV98ztI8d-tgNiUArEI54tnDTflyvxI0/w:720/sm:1/enc/0pEbn2MgXMNwZgPp/I_dA_C_2kDu8svFA/PUYhdcjXhxjUEvcp/ri5Sohl3hw9J1Y9d/7BlveFu7w88EbQD_/FpJFMiX3_hrF4FGD/_Dx44n3_a_gTuVwy/WaTX6UX2MkXVGALs/WMW2OqdDuEP2GlOB/D2jb6qU-1xbJDodz/eOPdstDyhjW0suru/UxVt1GIgOkGKSwjS/J0MGMNzD5SDqOJ_4/6wtiZcqB5LvLkT7w/5bwL8PSBc9o.jpg",
+    "url": "https://ebedesigns-shop.fourthwall.com/products/caps-lock-chaos-graphic-t-shirt",
+    "status": "published",
+    "productType": "merchandise",
+    "quality": 100,
+    "variantId": "b83e8379-1243-4964-8c0d-d0078b286be0",
+    "pageUrl": "products/caps-lock-chaos-graphic-t-shirt/"
   }
 ]
