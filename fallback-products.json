@@ -9,9 +9,9 @@
     "image": "assets/products/habit-reflection-tracker-toolkit.png",
     "url": "https://ebedesigns-shop.fourthwall.com/products/habit-reflection-tracker-toolkit",
     "status": "published",
-    "productType": "tracker pack",
+    "productType": "merchandise",
     "quality": 100,
-    "variantId": "",
+    "variantId": "ea1d070d-953e-4e66-8486-c40d0f8d4be6",
     "pageUrl": "products/habit-reflection-tracker-toolkit/"
   },
   {
@@ -24,9 +24,9 @@
     "image": "assets/products/meal-planning-organization-tracker-toolkit.png",
     "url": "https://ebedesigns-shop.fourthwall.com/products/meal-planning-organization-tracker-toolkit",
     "status": "published",
-    "productType": "tracker pack",
+    "productType": "merchandise",
     "quality": 100,
-    "variantId": "",
+    "variantId": "a8f5d7dd-0a6f-48c2-b6b7-165a21e47b71",
     "pageUrl": "products/meal-planning-organization-tracker-toolkit/"
   },
   {
@@ -39,9 +39,9 @@
     "image": "assets/products/study-session-planning-90-day-action-calendar.png",
     "url": "https://ebedesigns-shop.fourthwall.com/products/study-session-planning-90-day-action-calendar",
     "status": "published",
-    "productType": "content calendar",
+    "productType": "merchandise",
     "quality": 100,
-    "variantId": "",
+    "variantId": "f587557b-a701-448e-9a46-5e1ddadf37c5",
     "pageUrl": "products/study-session-planning-90-day-action-calendar/"
   },
   {
@@ -54,9 +54,9 @@
     "image": "assets/products/job-search-organization-90-day-action-calendar.png",
     "url": "https://ebedesigns-shop.fourthwall.com/products/job-search-organization-90-day-action-calendar",
     "status": "published",
-    "productType": "content calendar",
+    "productType": "merchandise",
     "quality": 100,
-    "variantId": "",
+    "variantId": "93c1e98d-b15b-476e-b732-f5cd4b287e01",
     "pageUrl": "products/job-search-organization-90-day-action-calendar/"
   },
   {
@@ -69,9 +69,9 @@
     "image": "assets/products/digital-file-organization-checklist-bundle.png",
     "url": "https://ebedesigns-shop.fourthwall.com/products/digital-file-organization-checklist-bundle",
     "status": "published",
-    "productType": "checklist bundle",
+    "productType": "merchandise",
     "quality": 100,
-    "variantId": "",
+    "variantId": "2e6bbe43-0b74-40f4-82cb-e360e8ba48e9",
     "pageUrl": "products/digital-file-organization-checklist-bundle/"
   }
 ]
