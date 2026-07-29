@@ -1,0 +1,34 @@
+[
+  {
+    "name": "Meal Planning Organization Tracker Toolkit",
+    "slug": "meal-planning-organization-tracker-toolkit",
+    "landingPage": "https://ebedesigns.online/products/meal-planning-organization-tracker-toolkit/",
+    "checkout": "https://ebedesigns-shop.fourthwall.com/products/meal-planning-organization-tracker-toolkit",
+    "image": "https://ebedesigns.online/assets/products/meal-planning-organization-tracker-toolkit.png",
+    "price": 10.79
+  },
+  {
+    "name": "Study Session Planning 90-Day Action Calendar",
+    "slug": "study-session-planning-90-day-action-calendar",
+    "landingPage": "https://ebedesigns.online/products/study-session-planning-90-day-action-calendar/",
+    "checkout": "https://ebedesigns-shop.fourthwall.com/products/study-session-planning-90-day-action-calendar",
+    "image": "https://ebedesigns.online/assets/products/study-session-planning-90-day-action-calendar.png",
+    "price": 15.51
+  },
+  {
+    "name": "Job Search Organization 90-Day Action Calendar",
+    "slug": "job-search-organization-90-day-action-calendar",
+    "landingPage": "https://ebedesigns.online/products/job-search-organization-90-day-action-calendar/",
+    "checkout": "https://ebedesigns-shop.fourthwall.com/products/job-search-organization-90-day-action-calendar",
+    "image": "https://ebedesigns.online/assets/products/job-search-organization-90-day-action-calendar.png",
+    "price": 13.78
+  },
+  {
+    "name": "Digital File Organization Checklist Bundle",
+    "slug": "digital-file-organization-checklist-bundle",
+    "landingPage": "https://ebedesigns.online/products/digital-file-organization-checklist-bundle/",
+    "checkout": "https://ebedesigns-shop.fourthwall.com/products/digital-file-organization-checklist-bundle",
+    "image": "https://ebedesigns.online/assets/products/digital-file-organization-checklist-bundle.png",
+    "price": 10.98
+  }
+]
