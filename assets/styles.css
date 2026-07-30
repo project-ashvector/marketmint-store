@@ -246,5 +246,40 @@ body.ebe-immersive>.site-header{max-width:1080px!important;min-height:76px;backg
  .hero-copy:before{background:linear-gradient(180deg,rgba(3,4,9,.55),rgba(3,4,9,.18),transparent)!important}
 }
 
+/* v0.9.6 - Permanent EBE site background */
+body.ebe-immersive,body.product-page{
+ background-color:#070910!important;
+ background-image:
+  linear-gradient(90deg,rgba(4,5,10,.34) 0%,rgba(4,5,10,.14) 18%,rgba(4,5,10,.16) 82%,rgba(4,5,10,.34) 100%),
+  linear-gradient(180deg,rgba(5,6,12,.18),rgba(5,6,12,.42)),
+  url("site-background.webp")!important;
+ background-position:center top!important;
+ background-size:cover!important;
+ background-repeat:no-repeat!important;
+ background-attachment:fixed!important;
+}
+.art-backdrop{display:none!important}
+body.ebe-immersive>.site-header{background:rgba(7,8,14,.82)!important;box-shadow:0 16px 55px rgba(0,0,0,.28)!important}
+.hero-zone{
+ background-image:
+  radial-gradient(circle at 73% 48%,color-mix(in srgb,var(--primary) 12%,transparent),transparent 39%),
+  linear-gradient(135deg,rgba(8,10,17,.88),rgba(8,10,17,.74))!important;
+ background-color:rgba(8,10,17,.76)!important;
+ border-color:rgba(126,142,199,.36)!important;
+ backdrop-filter:blur(18px) saturate(1.04)!important;
+}
+.hero-copy:before{background:linear-gradient(90deg,rgba(3,4,9,.68),rgba(3,4,9,.38) 68%,transparent)!important}
+.catalog-zone,.process-zone,.newsletter-zone,.page-main,.product-main,.featured-showcase,.recent-section{
+ background-color:rgba(8,9,15,.72)!important;
+ backdrop-filter:blur(14px) saturate(.95)!important;
+}
+.product-card,.value-strip div,.product-detail,.product-sections section,.related{
+ background-color:rgba(12,14,22,.88)!important;
+ backdrop-filter:blur(12px)!important;
+}
+.site-footer{background:linear-gradient(180deg,rgba(7,8,13,.32),rgba(7,8,13,.88))!important}
+@media(max-width:900px){body.ebe-immersive,body.product-page{background-position:center top!important;background-size:auto 100vh!important;background-attachment:scroll!important}}
+@media(max-width:620px){body.ebe-immersive,body.product-page{background-image:linear-gradient(180deg,rgba(4,5,10,.60),rgba(4,5,10,.82)),url("site-background.webp")!important;background-size:auto 100vh!important;background-position:center top!important}.hero-zone{background:rgba(8,10,17,.84)!important}}
+
 :root{--theme-feature-opacity:0.075}
 @media(max-width:620px){.art-backdrop[data-layout="poster-wall"]{opacity:.46}.poster-slot{display:block!important;width:142px!important;height:176px!important;min-height:0!important;opacity:calc(var(--poster-o)*.42)!important}.poster-left{left:-82px!important}.poster-right{right:-82px!important}.poster-slot:nth-child(n+3){display:none!important}.hero-zone{position:relative;z-index:4}}

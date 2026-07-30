@@ -1,5 +1,5 @@
 {
-  "builtAt": "2026-07-30T18:43:02+00:00",
+  "builtAt": "2026-07-30T19:00:56+00:00",
   "enabled": true,
   "randomizedOnBuild": true,
   "desktopDensity": 6,
@@ -20,7 +20,10 @@
   "parallaxDepth": false,
   "cleanCenterLane": true,
   "titleCardBackground": "assets/hero/ebe-title-card-background.webp",
-  "titleCardBackgroundMode": "clean-collage",
+  "titleCardBackgroundMode": "glass-over-permanent-background",
+  "siteBackground": "assets/site-background.webp",
+  "siteBackgroundPermanent": true,
+  "appBackgroundPermanent": true,
   "assets": [
     "ctrl-alt-delinquent.webp",
     "404-sleep-not-found.webp",
