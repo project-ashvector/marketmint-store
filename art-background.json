@@ -1,14 +1,14 @@
 {
-  "builtAt": "2026-07-30T07:39:39+00:00",
+  "builtAt": "2026-07-30T08:00:40+00:00",
   "enabled": true,
   "randomizedOnBuild": true,
   "desktopDensity": 9,
   "phoneDensity": 3,
   "opacity": 0.3,
   "collisionFree": true,
-  "placementVersion": 5,
-  "desktopScale": "spread-x-large",
-  "maxVisibleDesktop": 9,
+  "placementVersion": 6,
+  "desktopScale": "epic-edge-spread",
+  "maxVisibleDesktop": 10,
   "assets": [
     "ctrl-alt-delinquent.webp",
     "404-sleep-not-found.webp",
