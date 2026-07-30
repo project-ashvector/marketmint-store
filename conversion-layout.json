@@ -1,7 +1,9 @@
 {
-  "builtAt": "2026-07-30T19:23:27+00:00",
-  "version": 2,
+  "builtAt": "2026-07-30T19:46:08+00:00",
+  "version": 3,
   "featuredProduct": true,
+  "featuredProductSlug": "",
+  "manualFeaturedProduct": false,
   "qualityRankedCatalog": true,
   "categoryDiscovery": true,
   "sectionedCatalog": true,
