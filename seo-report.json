@@ -1,15 +1,15 @@
 {
-  "builtAt": "2026-07-29T23:34:22+00:00",
+  "builtAt": "2026-07-30T00:09:40+00:00",
   "publicBase": "https://project-ashvector.github.io/marketmint-store",
-  "productPages": 38,
+  "productPages": 43,
   "sitemap": true,
   "structuredData": true,
   "mobileOptimized": true,
   "mobileProfessionalV2": true,
   "mobileDesignVersion": 6,
-  "assetVersion": "20260729233422",
+  "assetVersion": "20260730000940",
   "backgroundArt": true,
   "revenueTrackingEnabled": false,
   "indexNowEnabled": true,
-  "promotionKits": 38
+  "promotionKits": 43
 }

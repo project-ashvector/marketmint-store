@@ -1,5 +1,20 @@
 [
   {
+    "id": "91f1d71a-c6df-434f-ae08-d52d91dc5320",
+    "name": "Small Business Content Planning Tracker Toolkit",
+    "slug": "small-business-content-planning-tracker-toolkit",
+    "description": "A practical digital toolkit for small business owners planning consistent posts. It turns small business content planning into a repeatable workflow with editable trackers, printable HTML pages, plain-text instructions, and a quick-start guide. Files are designed to work with common spreadsheet and web-browser tools without a subscription.",
+    "price": 9.57,
+    "currency": "USD",
+    "image": "assets/products/small-business-content-planning-tracker-toolkit.png",
+    "url": "https://ebedesigns-shop.fourthwall.com/products/small-business-content-planning-tracker-toolkit",
+    "status": "published",
+    "productType": "merchandise",
+    "quality": 100,
+    "variantId": "08faee48-c419-4c7f-bf95-f26f44fafa14",
+    "pageUrl": "products/small-business-content-planning-tracker-toolkit/"
+  },
+  {
     "id": "56d2e546-a335-42d5-8574-df655bc7c53e",
     "name": "Customer Follow-Up Tracking Simple Resource Website Kit",
     "slug": "customer-follow-up-tracking-simple-resource-website-kit",
@@ -568,5 +583,65 @@
     "quality": 100,
     "variantId": "bf0b0558-a16d-4327-881b-9397754a2d58",
     "pageUrl": "products/started-from-the-bucket/"
+  },
+  {
+    "id": "0dece47c-9b83-4ae3-bb06-d2836a7810d1",
+    "name": "GOONGOBLINS BAG",
+    "slug": "goongoblins-bag",
+    "description": "",
+    "price": 18.25,
+    "currency": "USD",
+    "image": "https://imgproxy.fourthwall.dev/meuFQxRJNxv1rNotCGLmY0_nW0CdlTWP4cWiJRWppyg/w:720/sm:1/enc/6svV7h_UzsLglSsZ/wzOVOxZJdT_d9XFg/0VLL8kQ3q_V59i9q/BuQPUDIXTFzvqDoV/iSHE4KhhuCFZPB1e/99DnvHyqtViyp6V7/HSVPLNrHb9jGnQEz/9j_3NBhO-jB4wu6f/zEeLTBBn4sNlUs3K/rzdq29405q_meHSM/JaM-26x-u6JStXL9/l9nvAYEbL1xtKvYE/bqJqm6-dFJ_aINc9/jzETz455AKrc5lxw/jk4yf70j39I.jpg",
+    "url": "https://ebedesigns-shop.fourthwall.com/products/goongoblins-bag",
+    "status": "published",
+    "productType": "merchandise",
+    "quality": 100,
+    "variantId": "114cab42-b971-4369-b9a9-e46581082aa9",
+    "pageUrl": "products/goongoblins-bag/"
+  },
+  {
+    "id": "669779c3-e737-4f24-8486-c583dbb3cb60",
+    "name": "GOONGOBLINS LAPTOP COVER",
+    "slug": "goongoblins-laptop-cover",
+    "description": "",
+    "price": 24.16,
+    "currency": "USD",
+    "image": "https://imgproxy.fourthwall.dev/xdKCxDz3VJkSyGHhVpjTVs-vXtN2EyOwxoV1kKW5Lpo/w:720/sm:1/enc/T5xFKnd-dlfdduRf/57Md4NOTc01fVxjL/weWwPTUy9prepfVK/5tdkQMu78-S-_ey7/YlpajSjFcIq8oY0T/Wfvr9ufzThcFx7Xu/eaWwvqlmF0i3UK7T/WLh4Dv0XHrZ8KMO6/otTxXNGeynIPKoOp/3SCPeIsn57xttvWY/tB88jkC77jlisku8/SF_YtUx0xBlV3vYg/xmOx5gMaKYg4TPbk/pYmMJg6ibPOvun5R/6OchmKBqxhQ.jpg",
+    "url": "https://ebedesigns-shop.fourthwall.com/products/goongoblins-laptop-cover",
+    "status": "published",
+    "productType": "merchandise",
+    "quality": 100,
+    "variantId": "c09ab089-943a-4357-abfd-79e5ec0dfd04",
+    "pageUrl": "products/goongoblins-laptop-cover/"
+  },
+  {
+    "id": "24eebd75-6782-4071-8616-5d4a7689e0e2",
+    "name": "EBE DESIGNS ANDROID CASE",
+    "slug": "ebe-designs-android-case",
+    "description": "",
+    "price": 16.95,
+    "currency": "USD",
+    "image": "https://imgproxy.fourthwall.dev/sERGo2jMECapFB69noyH9Jc4a5fuaKwr4RaREAwmSUc/w:720/sm:1/enc/n60ItlPjdqK1DLVo/9pwbBd9flEkbJ1rn/GAxP9_THBTVtIDHH/-4aYRSGCXd36ZrYD/LYJiXhpR58Bu5wBO/21I7ZclrGeld2dcd/EXwfixCSk9PhNXU4/dhR0UUK9SmzuX-Bk/kR6ZDrK0gpsxJWKC/-l_lyVY2na-lZOQL/VhRV5XwWHjTt0BU-/ESvQGx9f2MkhJ64G/XgsdwHvcX7L0hhHz/sfjrIXarL2zRICT4/vBt2xlw-VA4.jpg",
+    "url": "https://ebedesigns-shop.fourthwall.com/products/ebe-designs-android-case",
+    "status": "published",
+    "productType": "merchandise",
+    "quality": 100,
+    "variantId": "c90c50b2-bf47-4565-b00e-d7b45fb72ab4",
+    "pageUrl": "products/ebe-designs-android-case/"
+  },
+  {
+    "id": "5dd879e8-e4cc-47d3-bfec-97413cbfe911",
+    "name": "GONGOBLINS DESKTOP MAT",
+    "slug": "gongoblins-desktop-mat",
+    "description": "",
+    "price": 16.0,
+    "currency": "USD",
+    "image": "https://imgproxy.fourthwall.dev/dOCR157CnEeoKrXP8tJOHlJ-7OTatrMoyAOxfFfD1RU/w:720/sm:1/enc/_RzJo6Ez9Z4V8r-F/FdJoa4gGzkrMaJFu/AaaDpYZoqVdqW7s4/5Q51RXUeE14ZSdmt/spRUU6s4bncUT273/dgLTVjSQxRv3BwMF/idp0wiOSd7DxWsyn/In3VMRXPQLUUeM7M/wkbi6WRwVgQ6qogq/RNrVZRE-Y7opy44c/r71xnSkxc6IOQGSr/Qeo2RDRTqldLQUFe/w2BsItG-m_jClJ8b/ZSi-xs6LZPPLan_R/Z7ComWsBsDs.jpg",
+    "url": "https://ebedesigns-shop.fourthwall.com/products/gongoblins-desktop-mat",
+    "status": "published",
+    "productType": "merchandise",
+    "quality": 100,
+    "variantId": "749923d8-e7bb-478b-9f76-50409d1edc9c",
+    "pageUrl": "products/gongoblins-desktop-mat/"
   }
 ]
