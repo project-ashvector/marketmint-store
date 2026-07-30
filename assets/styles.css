@@ -281,5 +281,97 @@ body.ebe-immersive>.site-header{background:rgba(7,8,14,.82)!important;box-shadow
 @media(max-width:900px){body.ebe-immersive,body.product-page{background-position:center top!important;background-size:auto 100vh!important;background-attachment:scroll!important}}
 @media(max-width:620px){body.ebe-immersive,body.product-page{background-image:linear-gradient(180deg,rgba(4,5,10,.60),rgba(4,5,10,.82)),url("site-background.webp")!important;background-size:auto 100vh!important;background-position:center top!important}.hero-zone{background:rgba(8,10,17,.84)!important}}
 
+/* v0.9.7 - Permanent title-card mural, clean transparent logo rings, and glass catalog */
+.hero-zone{
+ background-color:rgba(6,8,14,.36)!important;
+ background-image:
+  linear-gradient(90deg,rgba(3,4,9,.88) 0%,rgba(3,4,9,.72) 38%,rgba(4,5,11,.30) 60%,rgba(4,5,11,.20) 100%),
+  radial-gradient(ellipse at 24% 50%,rgba(2,3,8,.40),transparent 67%),
+  url("hero/ebe-title-card-background.webp")!important;
+ background-size:cover!important;
+ background-position:center center!important;
+ background-repeat:no-repeat!important;
+ border-color:rgba(126,142,199,.42)!important;
+ box-shadow:0 38px 120px rgba(0,0,0,.48),inset 0 1px 0 rgba(255,255,255,.04)!important;
+ backdrop-filter:none!important;
+}
+.hero-zone:before{
+ background:
+  linear-gradient(90deg,rgba(2,3,8,.42) 0%,rgba(2,3,8,.18) 48%,transparent 72%),
+  radial-gradient(circle at 74% 48%,color-mix(in srgb,var(--primary) 10%,transparent),transparent 38%)!important;
+}
+.hero-copy:before{
+ background:linear-gradient(90deg,rgba(2,3,8,.80) 0%,rgba(2,3,8,.58) 66%,transparent 100%)!important;
+ box-shadow:none!important;
+}
+.hero-feature-art{display:none!important}
+.hero-art:before{
+ background:radial-gradient(circle,color-mix(in srgb,var(--primary) 24%,transparent),transparent 68%)!important;
+ filter:blur(12px)!important;
+}
+.orb{
+ background:transparent!important;
+ border:0!important;
+ box-shadow:none!important;
+ backdrop-filter:none!important;
+}
+.orb:before,.orb:after{
+ background:transparent!important;
+ box-shadow:none!important;
+}
+.orb img{
+ background:transparent!important;
+ padding:0!important;
+ filter:drop-shadow(0 20px 48px rgba(0,0,0,.52)) drop-shadow(0 0 30px color-mix(in srgb,var(--primary) 20%,transparent))!important;
+}
+/* Keep the mural visible through the shopping area while retaining readable cards. */
+.catalog-zone,.featured-showcase,.recent-section{
+ background:transparent!important;
+ background-color:transparent!important;
+ backdrop-filter:none!important;
+ box-shadow:none!important;
+}
+.catalog-zone:before,.catalog-zone:after,.featured-showcase:before,.recent-section:before{
+ pointer-events:none;
+}
+.catalog-group{
+ background:transparent!important;
+}
+.catalog-group-head{
+ background:linear-gradient(90deg,rgba(7,9,15,.58),rgba(7,9,15,.18) 74%,transparent)!important;
+ border-radius:16px!important;
+ padding:18px 20px!important;
+ backdrop-filter:blur(8px)!important;
+}
+.product-card{
+ background:linear-gradient(145deg,rgba(13,15,24,.78),rgba(8,10,17,.66))!important;
+ backdrop-filter:blur(10px) saturate(.96)!important;
+ box-shadow:0 18px 58px rgba(0,0,0,.25)!important;
+}
+.product-image{
+ background:rgba(7,9,15,.42)!important;
+}
+.catalog-summary,.catalog-tools,.filters{
+ background:transparent!important;
+}
+@media(max-width:900px){
+ .hero-zone{background-position:54% center!important}
+ .catalog-group-head{padding:16px!important}
+}
+@media(max-width:620px){
+ .hero-zone{
+  background-image:
+   linear-gradient(180deg,rgba(3,4,9,.91) 0%,rgba(3,4,9,.80) 54%,rgba(3,4,9,.58) 100%),
+   url("hero/ebe-title-card-background.webp")!important;
+  background-position:43% center!important;
+  background-size:auto 100%!important;
+  background-color:rgba(6,8,14,.48)!important;
+ }
+ .hero-copy:before{background:linear-gradient(180deg,rgba(2,3,8,.62),rgba(2,3,8,.20),transparent)!important}
+ .orb img{width:118px!important;height:118px!important;border-radius:28px!important}
+ .catalog-group-head{background:rgba(7,9,15,.54)!important;padding:14px!important}
+ .product-card{background:linear-gradient(145deg,rgba(13,15,24,.84),rgba(8,10,17,.74))!important}
+}
+
 :root{--theme-feature-opacity:0.075}
 @media(max-width:620px){.art-backdrop[data-layout="poster-wall"]{opacity:.46}.poster-slot{display:block!important;width:142px!important;height:176px!important;min-height:0!important;opacity:calc(var(--poster-o)*.42)!important}.poster-left{left:-82px!important}.poster-right{right:-82px!important}.poster-slot:nth-child(n+3){display:none!important}.hero-zone{position:relative;z-index:4}}
