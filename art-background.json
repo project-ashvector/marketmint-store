@@ -1,13 +1,14 @@
 {
-  "builtAt": "2026-07-30T06:46:27+00:00",
+  "builtAt": "2026-07-30T07:35:37+00:00",
   "enabled": true,
   "randomizedOnBuild": true,
   "desktopDensity": 9,
   "phoneDensity": 3,
   "opacity": 0.3,
   "collisionFree": true,
-  "placementVersion": 4,
-  "desktopScale": "x-large",
+  "placementVersion": 5,
+  "desktopScale": "spread-x-large",
+  "maxVisibleDesktop": 9,
   "assets": [
     "ctrl-alt-delinquent.webp",
     "404-sleep-not-found.webp",
@@ -17,6 +18,13 @@
     "caps-lock-chaos.webp",
     "goongoblins.webp",
     "mids-character.webp",
-    "started-from-bottom-mids.webp"
+    "started-from-bottom-mids.webp",
+    "escaped-convict.webp",
+    "yung-walkthrough.webp",
+    "certified-gooner.webp",
+    "whats-a-gooner-to-a-goblin.webp",
+    "started-from-bottom-mids-white.webp",
+    "ebmarah-face.webp",
+    "ebmarah-wordmark.webp"
   ]
 }
