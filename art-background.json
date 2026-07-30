@@ -1,5 +1,5 @@
 {
-  "builtAt": "2026-07-30T21:41:52+00:00",
+  "builtAt": "2026-07-30T22:17:50+00:00",
   "enabled": true,
   "randomizedOnBuild": true,
   "desktopDensity": 6,
@@ -19,14 +19,14 @@
   "localizedTextProtection": true,
   "parallaxDepth": false,
   "cleanCenterLane": true,
-  "titleCardBackground": "assets/hero/ebe-title-card-background.webp",
+  "titleCardBackground": "assets/hero/ebe-title-card-background.png",
   "titleCardBackgroundMode": "permanent-collage-mural",
   "titleCardBackgroundPermanent": true,
   "informationPanelsUseTitleCardBackground": true,
   "informationCardSurface": "mural-glass",
   "catalogSurface": "transparent-glass",
   "orbPlate": "transparent",
-  "siteBackground": "assets/site-background.webp",
+  "siteBackground": "assets/site-background.png",
   "siteBackgroundPermanent": true,
   "appBackgroundPermanent": true,
   "assets": [

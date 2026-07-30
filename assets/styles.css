@@ -213,7 +213,7 @@ body.ebe-immersive>.site-header{max-width:1080px!important;min-height:76px;backg
  background-image:
   linear-gradient(90deg,rgba(4,5,10,.83) 0%,rgba(4,5,10,.70) 38%,rgba(5,6,12,.31) 60%,rgba(5,6,12,.20) 100%),
   radial-gradient(ellipse at 26% 50%,rgba(4,5,10,.36),transparent 66%),
-  url("hero/ebe-title-card-background.webp")!important;
+  url("hero/ebe-title-card-background.png")!important;
  background-size:cover!important;
  background-position:center center!important;
  background-repeat:no-repeat!important;
@@ -240,7 +240,7 @@ body.ebe-immersive>.site-header{max-width:1080px!important;min-height:76px;backg
  .hero-zone{
   background-image:
    linear-gradient(180deg,rgba(3,4,9,.88) 0%,rgba(3,4,9,.76) 54%,rgba(3,4,9,.54) 100%),
-   url("hero/ebe-title-card-background.webp")!important;
+   url("hero/ebe-title-card-background.png")!important;
   background-position:43% center!important;
   background-size:auto 100%!important;
  }
@@ -253,7 +253,7 @@ body.ebe-immersive,body.product-page{
  background-image:
   linear-gradient(90deg,rgba(4,5,10,.34) 0%,rgba(4,5,10,.14) 18%,rgba(4,5,10,.16) 82%,rgba(4,5,10,.34) 100%),
   linear-gradient(180deg,rgba(5,6,12,.18),rgba(5,6,12,.42)),
-  url("site-background.webp")!important;
+  url("site-background.png")!important;
  background-position:center top!important;
  background-size:cover!important;
  background-repeat:no-repeat!important;
@@ -280,7 +280,7 @@ body.ebe-immersive>.site-header{background:rgba(7,8,14,.82)!important;box-shadow
 }
 .site-footer{background:linear-gradient(180deg,rgba(7,8,13,.32),rgba(7,8,13,.88))!important}
 @media(max-width:900px){body.ebe-immersive,body.product-page{background-position:center top!important;background-size:auto 100vh!important;background-attachment:scroll!important}}
-@media(max-width:620px){body.ebe-immersive,body.product-page{background-image:linear-gradient(180deg,rgba(4,5,10,.60),rgba(4,5,10,.82)),url("site-background.webp")!important;background-size:auto 100vh!important;background-position:center top!important}.hero-zone{background:rgba(8,10,17,.84)!important}}
+@media(max-width:620px){body.ebe-immersive,body.product-page{background-image:linear-gradient(180deg,rgba(4,5,10,.60),rgba(4,5,10,.82)),url("site-background.png")!important;background-size:auto 100vh!important;background-position:center top!important}.hero-zone{background:rgba(8,10,17,.84)!important}}
 
 /* v0.9.7 - Permanent title-card mural, clean transparent logo rings, and glass catalog */
 .hero-zone{
@@ -288,7 +288,7 @@ body.ebe-immersive>.site-header{background:rgba(7,8,14,.82)!important;box-shadow
  background-image:
   linear-gradient(90deg,rgba(3,4,9,.88) 0%,rgba(3,4,9,.72) 38%,rgba(4,5,11,.30) 60%,rgba(4,5,11,.20) 100%),
   radial-gradient(ellipse at 24% 50%,rgba(2,3,8,.40),transparent 67%),
-  url("hero/ebe-title-card-background.webp")!important;
+  url("hero/ebe-title-card-background.png")!important;
  background-size:cover!important;
  background-position:center center!important;
  background-repeat:no-repeat!important;
@@ -363,7 +363,7 @@ body.ebe-immersive>.site-header{background:rgba(7,8,14,.82)!important;box-shadow
  .hero-zone{
   background-image:
    linear-gradient(180deg,rgba(3,4,9,.91) 0%,rgba(3,4,9,.80) 54%,rgba(3,4,9,.58) 100%),
-   url("hero/ebe-title-card-background.webp")!important;
+   url("hero/ebe-title-card-background.png")!important;
   background-position:43% center!important;
   background-size:auto 100%!important;
   background-color:rgba(6,8,14,.48)!important;
@@ -388,7 +388,7 @@ body.ebe-immersive>.site-header{background:rgba(7,8,14,.82)!important;box-shadow
  background-image:
   linear-gradient(90deg,rgba(2,3,8,.88) 0%,rgba(2,3,8,.69) 43%,rgba(3,4,10,.43) 72%,rgba(3,4,10,.32) 100%),
   linear-gradient(180deg,rgba(4,5,11,.16),rgba(4,5,11,.46)),
-  url("hero/ebe-title-card-background.webp")!important;
+  url("hero/ebe-title-card-background.png")!important;
  background-size:cover!important;
  background-position:center center!important;
  background-repeat:no-repeat!important;
@@ -437,7 +437,7 @@ body.ebe-immersive>.site-header{background:rgba(7,8,14,.82)!important;box-shadow
  pointer-events:none;
  background-image:
   linear-gradient(90deg,rgba(5,6,12,.88),rgba(5,6,12,.64)),
-  url("hero/ebe-title-card-background.webp");
+  url("hero/ebe-title-card-background.png");
  background-size:175% auto;
  background-position:center 48%;
  background-repeat:no-repeat;
@@ -461,7 +461,7 @@ body.ebe-immersive>.site-header{background:rgba(7,8,14,.82)!important;box-shadow
   border-radius:22px!important;
   background-image:
    linear-gradient(180deg,rgba(2,3,8,.90),rgba(2,3,8,.78) 58%,rgba(2,3,8,.65)),
-   url("hero/ebe-title-card-background.webp")!important;
+   url("hero/ebe-title-card-background.png")!important;
   background-size:auto 100%!important;
   background-position:43% center!important;
  }
