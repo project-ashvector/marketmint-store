@@ -1,5 +1,5 @@
 {
-  "builtAt": "2026-07-30T16:44:19+00:00",
+  "builtAt": "2026-07-30T16:59:53+00:00",
   "version": 2,
   "featuredProduct": true,
   "qualityRankedCatalog": true,
@@ -12,6 +12,8 @@
     "hats"
   ],
   "stickerSection": true,
+  "phoneCaseSection": true,
+  "smartClassifierVersion": 2,
   "recentlyViewed": true,
   "mobileOptimized": true,
   "nonPushy": true,
