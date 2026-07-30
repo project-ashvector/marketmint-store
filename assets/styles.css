@@ -182,7 +182,7 @@ body.ebe-immersive>.site-header{max-width:1080px!important;min-height:76px;backg
 @media(max-width:900px){.discovery-strip{grid-template-columns:1fr 1fr;margin-top:-20px}.discovery-strip button:last-child{grid-column:1/-1}.featured-showcase{grid-template-columns:1fr}.featured-media{max-width:620px}.recent-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:620px){.discovery-strip{grid-template-columns:1fr;margin:0 auto 62px;padding:0 var(--mobile-gutter)}.discovery-strip button:last-child{grid-column:auto}.discovery-strip button{min-height:96px}.featured-showcase{margin:0 var(--mobile-gutter) 72px;padding:18px;grid-template-columns:1fr;border-radius:20px}.featured-copy h2{font-size:34px}.featured-copy .button{width:100%}.recent-section{padding:0 var(--mobile-gutter) 82px}.recent-grid{grid-template-columns:1fr}.recent-section .section-heading{display:flex;align-items:end}}
 
-/* v0.9.2 — Reliable smart category sections */
+/* v0.9.3 — Reliable smart category sections */
 .discovery-categories{grid-template-columns:repeat(4,minmax(0,1fr));margin-top:-42px}
 .discovery-categories button{min-height:118px}
 .catalog-intro{max-width:620px;margin:14px 0 0;color:var(--muted);font-size:14px}

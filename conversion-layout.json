@@ -1,5 +1,5 @@
 {
-  "builtAt": "2026-07-30T16:59:53+00:00",
+  "builtAt": "2026-07-30T17:15:44+00:00",
   "version": 2,
   "featuredProduct": true,
   "qualityRankedCatalog": true,
@@ -13,7 +13,7 @@
   ],
   "stickerSection": true,
   "phoneCaseSection": true,
-  "smartClassifierVersion": 2,
+  "smartClassifierVersion": 3,
   "recentlyViewed": true,
   "mobileOptimized": true,
   "nonPushy": true,
