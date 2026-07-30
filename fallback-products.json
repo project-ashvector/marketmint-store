@@ -10,6 +10,8 @@
     "url": "https://ebedesigns-shop.fourthwall.com/products/project-handoff-organization-checklist-bundle",
     "status": "published",
     "productType": "merchandise",
+    "storeCategory": "programs",
+    "storeCategoryLabel": "Programs & Web Tools",
     "quality": 100,
     "variantId": "7ce0254d-233e-495d-81de-23daa07c037b",
     "pageUrl": "products/project-handoff-organization-checklist-bundle/"
@@ -25,6 +27,8 @@
     "url": "https://ebedesigns-shop.fourthwall.com/products/small-business-content-planning-tracker-toolkit",
     "status": "published",
     "productType": "merchandise",
+    "storeCategory": "programs",
+    "storeCategoryLabel": "Programs & Web Tools",
     "quality": 100,
     "variantId": "08faee48-c419-4c7f-bf95-f26f44fafa14",
     "pageUrl": "products/small-business-content-planning-tracker-toolkit/"
@@ -40,6 +44,8 @@
     "url": "https://ebedesigns-shop.fourthwall.com/products/customer-follow-up-tracking-simple-resource-website-kit",
     "status": "published",
     "productType": "merchandise",
+    "storeCategory": "programs",
+    "storeCategoryLabel": "Programs & Web Tools",
     "quality": 100,
     "variantId": "f1ecd8fa-6e11-471b-a86d-1b8b5bd426b0",
     "pageUrl": "products/customer-follow-up-tracking-simple-resource-website-kit/"
@@ -55,6 +61,8 @@
     "url": "https://ebedesigns-shop.fourthwall.com/products/freelance-client-organization-planner-pack",
     "status": "published",
     "productType": "merchandise",
+    "storeCategory": "programs",
+    "storeCategoryLabel": "Programs & Web Tools",
     "quality": 100,
     "variantId": "53a85b42-a13c-46c7-a27a-13f038310403",
     "pageUrl": "products/freelance-client-organization-planner-pack/"
@@ -70,6 +78,8 @@
     "url": "https://ebedesigns-shop.fourthwall.com/products/weekly-home-reset-simple-resource-website-kit",
     "status": "published",
     "productType": "merchandise",
+    "storeCategory": "programs",
+    "storeCategoryLabel": "Programs & Web Tools",
     "quality": 100,
     "variantId": "40aa9a93-92e1-409a-9afd-97a1d492465e",
     "pageUrl": "products/weekly-home-reset-simple-resource-website-kit/"
@@ -85,6 +95,8 @@
     "url": "https://ebedesigns-shop.fourthwall.com/products/moving-checklist-organization-planner-pack",
     "status": "published",
     "productType": "merchandise",
+    "storeCategory": "programs",
+    "storeCategoryLabel": "Programs & Web Tools",
     "quality": 100,
     "variantId": "cd0af9c4-dfaf-4fd0-86e9-d0556e61ecf4",
     "pageUrl": "products/moving-checklist-organization-planner-pack/"
@@ -100,6 +112,8 @@
     "url": "https://ebedesigns-shop.fourthwall.com/products/habit-reflection-tracker-toolkit",
     "status": "published",
     "productType": "merchandise",
+    "storeCategory": "programs",
+    "storeCategoryLabel": "Programs & Web Tools",
     "quality": 100,
     "variantId": "ea1d070d-953e-4e66-8486-c40d0f8d4be6",
     "pageUrl": "products/habit-reflection-tracker-toolkit/"
@@ -115,6 +129,8 @@
     "url": "https://ebedesigns-shop.fourthwall.com/products/meal-planning-organization-tracker-toolkit",
     "status": "published",
     "productType": "merchandise",
+    "storeCategory": "programs",
+    "storeCategoryLabel": "Programs & Web Tools",
     "quality": 100,
     "variantId": "a8f5d7dd-0a6f-48c2-b6b7-165a21e47b71",
     "pageUrl": "products/meal-planning-organization-tracker-toolkit/"
@@ -130,6 +146,8 @@
     "url": "https://ebedesigns-shop.fourthwall.com/products/study-session-planning-90-day-action-calendar",
     "status": "published",
     "productType": "merchandise",
+    "storeCategory": "programs",
+    "storeCategoryLabel": "Programs & Web Tools",
     "quality": 100,
     "variantId": "f587557b-a701-448e-9a46-5e1ddadf37c5",
     "pageUrl": "products/study-session-planning-90-day-action-calendar/"
@@ -145,6 +163,8 @@
     "url": "https://ebedesigns-shop.fourthwall.com/products/job-search-organization-90-day-action-calendar",
     "status": "published",
     "productType": "merchandise",
+    "storeCategory": "programs",
+    "storeCategoryLabel": "Programs & Web Tools",
     "quality": 100,
     "variantId": "93c1e98d-b15b-476e-b732-f5cd4b287e01",
     "pageUrl": "products/job-search-organization-90-day-action-calendar/"
@@ -160,6 +180,8 @@
     "url": "https://ebedesigns-shop.fourthwall.com/products/digital-file-organization-checklist-bundle",
     "status": "published",
     "productType": "merchandise",
+    "storeCategory": "programs",
+    "storeCategoryLabel": "Programs & Web Tools",
     "quality": 100,
     "variantId": "2e6bbe43-0b74-40f4-82cb-e360e8ba48e9",
     "pageUrl": "products/digital-file-organization-checklist-bundle/"
@@ -175,6 +197,8 @@
     "url": "https://ebedesigns-shop.fourthwall.com/products/practical-downloads-less-busywork-graphic-t-shirt",
     "status": "published",
     "productType": "merchandise",
+    "storeCategory": "shirts",
+    "storeCategoryLabel": "T-Shirts",
     "quality": 100,
     "variantId": "ef4d85b2-20ad-4d95-bee9-142f649718b0",
     "pageUrl": "products/practical-downloads-less-busywork-graphic-t-shirt/"
@@ -190,6 +214,8 @@
     "url": "https://ebedesigns-shop.fourthwall.com/products/less-chaos-more-progress-sticker",
     "status": "published",
     "productType": "merchandise",
+    "storeCategory": "stickers",
+    "storeCategoryLabel": "Stickers & Decals",
     "quality": 100,
     "variantId": "e972df36-9283-47ab-902d-2df52fca1462",
     "pageUrl": "products/less-chaos-more-progress-sticker/"
@@ -205,6 +231,8 @@
     "url": "https://ebedesigns-shop.fourthwall.com/products/build-once-reuse-forever-graphic-t-shirt",
     "status": "published",
     "productType": "merchandise",
+    "storeCategory": "shirts",
+    "storeCategoryLabel": "T-Shirts",
     "quality": 100,
     "variantId": "3230ae57-c8f4-426f-8fae-a58c7e2fdcf1",
     "pageUrl": "products/build-once-reuse-forever-graphic-t-shirt/"
@@ -220,6 +248,8 @@
     "url": "https://ebedesigns-shop.fourthwall.com/products/project-ash-vector-graphic-t-shirt",
     "status": "published",
     "productType": "merchandise",
+    "storeCategory": "shirts",
+    "storeCategoryLabel": "T-Shirts",
     "quality": 100,
     "variantId": "65639d11-4aa1-4202-8615-125e7cd308a2",
     "pageUrl": "products/project-ash-vector-graphic-t-shirt/"
@@ -235,6 +265,8 @@
     "url": "https://ebedesigns-shop.fourthwall.com/products/ctrl-alt-delinquent-graphic-t-shirt",
     "status": "published",
     "productType": "merchandise",
+    "storeCategory": "shirts",
+    "storeCategoryLabel": "T-Shirts",
     "quality": 100,
     "variantId": "aa012a61-d503-4240-a4d5-76ed4c1b044d",
     "pageUrl": "products/ctrl-alt-delinquent-graphic-t-shirt/"
@@ -250,6 +282,8 @@
     "url": "https://ebedesigns-shop.fourthwall.com/products/404-sleep-not-found-graphic-t-shirt",
     "status": "published",
     "productType": "merchandise",
+    "storeCategory": "programs",
+    "storeCategoryLabel": "Programs & Web Tools",
     "quality": 100,
     "variantId": "60ef53d4-f7ab-4fd9-a3fe-9654631f6953",
     "pageUrl": "products/404-sleep-not-found-graphic-t-shirt/"
@@ -265,6 +299,8 @@
     "url": "https://ebedesigns-shop.fourthwall.com/products/hack-squad-graphic-t-shirt",
     "status": "published",
     "productType": "merchandise",
+    "storeCategory": "shirts",
+    "storeCategoryLabel": "T-Shirts",
     "quality": 100,
     "variantId": "04309076-a0c2-4135-99d3-52934e4520d7",
     "pageUrl": "products/hack-squad-graphic-t-shirt/"
@@ -280,6 +316,8 @@
     "url": "https://ebedesigns-shop.fourthwall.com/products/multitask-mode-graphic-t-shirt",
     "status": "published",
     "productType": "merchandise",
+    "storeCategory": "shirts",
+    "storeCategoryLabel": "T-Shirts",
     "quality": 100,
     "variantId": "f9310066-7881-445a-8f2d-3a38234fe1c6",
     "pageUrl": "products/multitask-mode-graphic-t-shirt/"
@@ -295,6 +333,8 @@
     "url": "https://ebedesigns-shop.fourthwall.com/products/multitask-mode-sticker",
     "status": "published",
     "productType": "merchandise",
+    "storeCategory": "stickers",
+    "storeCategoryLabel": "Stickers & Decals",
     "quality": 100,
     "variantId": "b97bcf7d-3fb1-46c0-b888-3c15ee47589c",
     "pageUrl": "products/multitask-mode-sticker/"
@@ -310,6 +350,8 @@
     "url": "https://ebedesigns-shop.fourthwall.com/products/hack-squad-sticker",
     "status": "published",
     "productType": "merchandise",
+    "storeCategory": "stickers",
+    "storeCategoryLabel": "Stickers & Decals",
     "quality": 100,
     "variantId": "5c31ac21-c5c8-41fe-96a8-19559d443af7",
     "pageUrl": "products/hack-squad-sticker/"
@@ -325,6 +367,8 @@
     "url": "https://ebedesigns-shop.fourthwall.com/products/404-sleep-not-found-sticker",
     "status": "published",
     "productType": "merchandise",
+    "storeCategory": "programs",
+    "storeCategoryLabel": "Programs & Web Tools",
     "quality": 100,
     "variantId": "c3eb3b8f-6228-4284-91d6-69cccdbdf072",
     "pageUrl": "products/404-sleep-not-found-sticker/"
@@ -340,6 +384,8 @@
     "url": "https://ebedesigns-shop.fourthwall.com/products/ebe-designs-sticker",
     "status": "published",
     "productType": "merchandise",
+    "storeCategory": "stickers",
+    "storeCategoryLabel": "Stickers & Decals",
     "quality": 100,
     "variantId": "06e2d1fe-7227-41d9-8c31-3c8c8b767442",
     "pageUrl": "products/ebe-designs-sticker/"
@@ -355,6 +401,8 @@
     "url": "https://ebedesigns-shop.fourthwall.com/products/ebe-designs-cap",
     "status": "published",
     "productType": "merchandise",
+    "storeCategory": "hats",
+    "storeCategoryLabel": "Hats & Headwear",
     "quality": 100,
     "variantId": "b54cf904-1f41-4d7b-83e2-76d9e696261e",
     "pageUrl": "products/ebe-designs-cap/"
@@ -370,6 +418,8 @@
     "url": "https://ebedesigns-shop.fourthwall.com/products/multitask-mode-cap",
     "status": "published",
     "productType": "merchandise",
+    "storeCategory": "hats",
+    "storeCategoryLabel": "Hats & Headwear",
     "quality": 100,
     "variantId": "e9fc51b6-31fa-4b1b-bdf6-143ac2a30ad2",
     "pageUrl": "products/multitask-mode-cap/"
@@ -385,6 +435,8 @@
     "url": "https://ebedesigns-shop.fourthwall.com/products/debug-graphic-t-shrt",
     "status": "published",
     "productType": "merchandise",
+    "storeCategory": "other",
+    "storeCategoryLabel": "Other Merchandise",
     "quality": 100,
     "variantId": "31ed27f1-3e33-448e-9bdf-5f8c42751573",
     "pageUrl": "products/debug-graphic-t-shrt/"
@@ -400,6 +452,8 @@
     "url": "https://ebedesigns-shop.fourthwall.com/products/debug-sticker",
     "status": "published",
     "productType": "merchandise",
+    "storeCategory": "stickers",
+    "storeCategoryLabel": "Stickers & Decals",
     "quality": 100,
     "variantId": "88f2c6ff-d5c2-488d-888e-de6853fc1ba1",
     "pageUrl": "products/debug-sticker/"
@@ -415,6 +469,8 @@
     "url": "https://ebedesigns-shop.fourthwall.com/products/debug-cap",
     "status": "published",
     "productType": "merchandise",
+    "storeCategory": "hats",
+    "storeCategoryLabel": "Hats & Headwear",
     "quality": 100,
     "variantId": "02aaf378-cb5e-4a6f-9e71-63ddf95dcdef",
     "pageUrl": "products/debug-cap/"
@@ -430,6 +486,8 @@
     "url": "https://ebedesigns-shop.fourthwall.com/products/caps-lock-chaos-graphic-t-shirt",
     "status": "published",
     "productType": "merchandise",
+    "storeCategory": "shirts",
+    "storeCategoryLabel": "T-Shirts",
     "quality": 100,
     "variantId": "b83e8379-1243-4964-8c0d-d0078b286be0",
     "pageUrl": "products/caps-lock-chaos-graphic-t-shirt/"
@@ -445,6 +503,8 @@
     "url": "https://ebedesigns-shop.fourthwall.com/products/send-nodes-graphic-t-shirt",
     "status": "published",
     "productType": "merchandise",
+    "storeCategory": "shirts",
+    "storeCategoryLabel": "T-Shirts",
     "quality": 100,
     "variantId": "5844bee6-9e34-452d-ad81-1e72253d8d26",
     "pageUrl": "products/send-nodes-graphic-t-shirt/"
@@ -460,6 +520,8 @@
     "url": "https://ebedesigns-shop.fourthwall.com/products/lowercase-k-energy-graphic-t-shirt",
     "status": "published",
     "productType": "merchandise",
+    "storeCategory": "shirts",
+    "storeCategoryLabel": "T-Shirts",
     "quality": 100,
     "variantId": "ab6e72b7-c264-4867-bfe2-f1f29cbb021d",
     "pageUrl": "products/lowercase-k-energy-graphic-t-shirt/"
@@ -475,6 +537,8 @@
     "url": "https://ebedesigns-shop.fourthwall.com/products/lowercase-k-cap",
     "status": "published",
     "productType": "merchandise",
+    "storeCategory": "hats",
+    "storeCategoryLabel": "Hats & Headwear",
     "quality": 100,
     "variantId": "adf9952e-cfcb-4779-bdac-594c5af66532",
     "pageUrl": "products/lowercase-k-cap/"
@@ -490,6 +554,8 @@
     "url": "https://ebedesigns-shop.fourthwall.com/products/lowercase-k-energy-sticker",
     "status": "published",
     "productType": "merchandise",
+    "storeCategory": "stickers",
+    "storeCategoryLabel": "Stickers & Decals",
     "quality": 100,
     "variantId": "c0606596-8c5a-4fc3-828d-8fb555c86f29",
     "pageUrl": "products/lowercase-k-energy-sticker/"
@@ -505,6 +571,8 @@
     "url": "https://ebedesigns-shop.fourthwall.com/products/started-from-the-bottom-now-im-mids-graphic-t-shirt",
     "status": "published",
     "productType": "merchandise",
+    "storeCategory": "shirts",
+    "storeCategoryLabel": "T-Shirts",
     "quality": 100,
     "variantId": "52e7fc67-a590-4367-bf7d-5d4768cc2502",
     "pageUrl": "products/started-from-the-bottom-now-im-mids-graphic-t-shirt/"
@@ -520,6 +588,8 @@
     "url": "https://ebedesigns-shop.fourthwall.com/products/stated-from-the-bottom-now-im-mids-cap",
     "status": "published",
     "productType": "merchandise",
+    "storeCategory": "hats",
+    "storeCategoryLabel": "Hats & Headwear",
     "quality": 100,
     "variantId": "027d39bd-f949-4d5e-9e5d-dd8f433e1c69",
     "pageUrl": "products/stated-from-the-bottom-now-im-mids-cap/"
@@ -535,6 +605,8 @@
     "url": "https://ebedesigns-shop.fourthwall.com/products/started-from-the-bottom-now-im-mids-sticker",
     "status": "published",
     "productType": "merchandise",
+    "storeCategory": "stickers",
+    "storeCategoryLabel": "Stickers & Decals",
     "quality": 100,
     "variantId": "04966e16-3ca0-44f3-bfdd-293b67233dc1",
     "pageUrl": "products/started-from-the-bottom-now-im-mids-sticker/"
@@ -550,6 +622,8 @@
     "url": "https://ebedesigns-shop.fourthwall.com/products/goongoblins-graphic-t-shirt",
     "status": "published",
     "productType": "merchandise",
+    "storeCategory": "shirts",
+    "storeCategoryLabel": "T-Shirts",
     "quality": 100,
     "variantId": "f4d8271a-4b59-4370-ace6-62fb3dd3d660",
     "pageUrl": "products/goongoblins-graphic-t-shirt/"
@@ -565,6 +639,8 @@
     "url": "https://ebedesigns-shop.fourthwall.com/products/goongoblins-cap",
     "status": "published",
     "productType": "merchandise",
+    "storeCategory": "hats",
+    "storeCategoryLabel": "Hats & Headwear",
     "quality": 100,
     "variantId": "4f7bc1a9-454f-43e8-8f45-eb9d5e3121bf",
     "pageUrl": "products/goongoblins-cap/"
@@ -580,6 +656,8 @@
     "url": "https://ebedesigns-shop.fourthwall.com/products/the-goon-bucket",
     "status": "published",
     "productType": "merchandise",
+    "storeCategory": "other",
+    "storeCategoryLabel": "Other Merchandise",
     "quality": 100,
     "variantId": "c424b0dc-8d6a-4f04-9d92-64feb0d42a5f",
     "pageUrl": "products/the-goon-bucket/"
@@ -595,6 +673,8 @@
     "url": "https://ebedesigns-shop.fourthwall.com/products/started-from-the-bucket",
     "status": "published",
     "productType": "merchandise",
+    "storeCategory": "other",
+    "storeCategoryLabel": "Other Merchandise",
     "quality": 100,
     "variantId": "bf0b0558-a16d-4327-881b-9397754a2d58",
     "pageUrl": "products/started-from-the-bucket/"
@@ -610,6 +690,8 @@
     "url": "https://ebedesigns-shop.fourthwall.com/products/goongoblins-bag",
     "status": "published",
     "productType": "merchandise",
+    "storeCategory": "other",
+    "storeCategoryLabel": "Other Merchandise",
     "quality": 100,
     "variantId": "114cab42-b971-4369-b9a9-e46581082aa9",
     "pageUrl": "products/goongoblins-bag/"
@@ -625,6 +707,8 @@
     "url": "https://ebedesigns-shop.fourthwall.com/products/goongoblins-laptop-cover",
     "status": "published",
     "productType": "merchandise",
+    "storeCategory": "other",
+    "storeCategoryLabel": "Other Merchandise",
     "quality": 100,
     "variantId": "c09ab089-943a-4357-abfd-79e5ec0dfd04",
     "pageUrl": "products/goongoblins-laptop-cover/"
@@ -640,6 +724,8 @@
     "url": "https://ebedesigns-shop.fourthwall.com/products/ebe-designs-android-case",
     "status": "published",
     "productType": "merchandise",
+    "storeCategory": "other",
+    "storeCategoryLabel": "Other Merchandise",
     "quality": 100,
     "variantId": "c90c50b2-bf47-4565-b00e-d7b45fb72ab4",
     "pageUrl": "products/ebe-designs-android-case/"
@@ -655,6 +741,8 @@
     "url": "https://ebedesigns-shop.fourthwall.com/products/gongoblins-desktop-mat",
     "status": "published",
     "productType": "merchandise",
+    "storeCategory": "other",
+    "storeCategoryLabel": "Other Merchandise",
     "quality": 100,
     "variantId": "749923d8-e7bb-478b-9f76-50409d1edc9c",
     "pageUrl": "products/gongoblins-desktop-mat/"
@@ -670,6 +758,8 @@
     "url": "https://ebedesigns-shop.fourthwall.com/products/escaped-convict-graphic-t-shirt",
     "status": "published",
     "productType": "merchandise",
+    "storeCategory": "shirts",
+    "storeCategoryLabel": "T-Shirts",
     "quality": 100,
     "variantId": "971f7941-7d92-4e39-a8fe-bc99da0cf3b3",
     "pageUrl": "products/escaped-convict-graphic-t-shirt/"
@@ -685,6 +775,8 @@
     "url": "https://ebedesigns-shop.fourthwall.com/products/escaped-convict-cap",
     "status": "published",
     "productType": "merchandise",
+    "storeCategory": "hats",
+    "storeCategoryLabel": "Hats & Headwear",
     "quality": 100,
     "variantId": "1da5601b-3223-41b0-b488-37a367b9cf7a",
     "pageUrl": "products/escaped-convict-cap/"
@@ -700,6 +792,8 @@
     "url": "https://ebedesigns-shop.fourthwall.com/products/escaped-convict-sticker",
     "status": "published",
     "productType": "merchandise",
+    "storeCategory": "stickers",
+    "storeCategoryLabel": "Stickers & Decals",
     "quality": 100,
     "variantId": "6c61c01e-212f-4ac1-8a30-d231ef198217",
     "pageUrl": "products/escaped-convict-sticker/"
@@ -715,6 +809,8 @@
     "url": "https://ebedesigns-shop.fourthwall.com/products/yung-walkthrough-graphic-t-shirt",
     "status": "published",
     "productType": "merchandise",
+    "storeCategory": "shirts",
+    "storeCategoryLabel": "T-Shirts",
     "quality": 100,
     "variantId": "e5080834-aa3e-4dbc-ba5c-59cf445a2b95",
     "pageUrl": "products/yung-walkthrough-graphic-t-shirt/"
@@ -730,6 +826,8 @@
     "url": "https://ebedesigns-shop.fourthwall.com/products/dictatar-the-last-america-bender-graphic-t-shirt",
     "status": "published",
     "productType": "merchandise",
+    "storeCategory": "shirts",
+    "storeCategoryLabel": "T-Shirts",
     "quality": 100,
     "variantId": "6fe09bf9-bcc3-4583-b0ae-56a74446c65d",
     "pageUrl": "products/dictatar-the-last-america-bender-graphic-t-shirt/"

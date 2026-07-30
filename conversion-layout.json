@@ -1,9 +1,17 @@
 {
-  "builtAt": "2026-07-30T16:00:03+00:00",
-  "version": 1,
+  "builtAt": "2026-07-30T16:44:19+00:00",
+  "version": 2,
   "featuredProduct": true,
   "qualityRankedCatalog": true,
   "categoryDiscovery": true,
+  "sectionedCatalog": true,
+  "programClassification": true,
+  "apparelSections": [
+    "shirts",
+    "hoodies",
+    "hats"
+  ],
+  "stickerSection": true,
   "recentlyViewed": true,
   "mobileOptimized": true,
   "nonPushy": true,
