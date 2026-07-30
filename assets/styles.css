@@ -374,5 +374,103 @@ body.ebe-immersive>.site-header{background:rgba(7,8,14,.82)!important;box-shadow
  .product-card{background:linear-gradient(145deg,rgba(13,15,24,.84),rgba(8,10,17,.74))!important}
 }
 
+/* v0.9.10 - Reuse the permanent title-card mural on information pages */
+.page-main{
+ position:relative!important;
+ isolation:isolate!important;
+ overflow:hidden!important;
+ margin-top:54px!important;
+ margin-bottom:86px!important;
+ padding:64px 30px 96px!important;
+ border:1px solid rgba(126,142,199,.38)!important;
+ border-radius:28px!important;
+ background-color:rgba(6,8,14,.44)!important;
+ background-image:
+  linear-gradient(90deg,rgba(2,3,8,.88) 0%,rgba(2,3,8,.69) 43%,rgba(3,4,10,.43) 72%,rgba(3,4,10,.32) 100%),
+  linear-gradient(180deg,rgba(4,5,11,.16),rgba(4,5,11,.46)),
+  url("hero/ebe-title-card-background.webp")!important;
+ background-size:cover!important;
+ background-position:center center!important;
+ background-repeat:no-repeat!important;
+ box-shadow:0 34px 110px rgba(0,0,0,.42),inset 0 1px 0 rgba(255,255,255,.035)!important;
+ backdrop-filter:none!important;
+}
+.page-main:before{
+ content:"";
+ position:absolute;
+ inset:0;
+ z-index:0;
+ pointer-events:none;
+ background:
+  radial-gradient(circle at 76% 46%,color-mix(in srgb,var(--primary) 10%,transparent),transparent 34%),
+  linear-gradient(90deg,rgba(2,3,8,.22),transparent 58%)!important;
+}
+.page-main>.page-hero,.page-main>.prose{position:relative;z-index:1}
+.page-hero{
+ max-width:860px!important;
+ margin-bottom:44px!important;
+ padding:0 24px!important;
+}
+.page-hero h1{text-shadow:0 7px 28px rgba(0,0,0,.45)}
+.page-hero p{color:#b7bac7!important;max-width:850px}
+.prose{
+ max-width:900px!important;
+ gap:12px!important;
+ padding:0 24px!important;
+}
+.prose section{
+ position:relative!important;
+ isolation:isolate!important;
+ overflow:hidden!important;
+ padding:25px 26px!important;
+ border:1px solid rgba(126,142,199,.30)!important;
+ border-radius:17px!important;
+ background:linear-gradient(145deg,rgba(12,14,23,.80),rgba(7,9,16,.65))!important;
+ backdrop-filter:blur(12px) saturate(.94)!important;
+ box-shadow:0 14px 44px rgba(0,0,0,.20),inset 0 1px 0 rgba(255,255,255,.025)!important;
+}
+.prose section:before{
+ content:"";
+ position:absolute;
+ inset:0;
+ z-index:-1;
+ pointer-events:none;
+ background-image:
+  linear-gradient(90deg,rgba(5,6,12,.88),rgba(5,6,12,.64)),
+  url("hero/ebe-title-card-background.webp");
+ background-size:175% auto;
+ background-position:center 48%;
+ background-repeat:no-repeat;
+ opacity:.24;
+ filter:saturate(.78) contrast(.95);
+}
+.prose section:nth-child(2n):before{background-position:72% 42%}
+.prose section:nth-child(3n):before{background-position:30% 72%}
+.prose h2{color:#f5f4fb!important;text-shadow:0 4px 18px rgba(0,0,0,.42)}
+.prose p{color:#b3b6c3!important}
+@media(max-width:900px){
+ .page-main{max-width:calc(100% - 32px)!important;padding:52px 20px 74px!important;background-position:48% center!important}
+ .page-hero,.prose{padding-left:10px!important;padding-right:10px!important}
+}
+@media(max-width:620px){
+ .page-main{
+  max-width:calc(100% - 20px)!important;
+  margin-top:14px!important;
+  margin-bottom:42px!important;
+  padding:34px 12px 50px!important;
+  border-radius:22px!important;
+  background-image:
+   linear-gradient(180deg,rgba(2,3,8,.90),rgba(2,3,8,.78) 58%,rgba(2,3,8,.65)),
+   url("hero/ebe-title-card-background.webp")!important;
+  background-size:auto 100%!important;
+  background-position:43% center!important;
+ }
+ .page-hero{padding:0 8px!important;margin-bottom:30px!important}
+ .page-hero h1{font-size:clamp(42px,11vw,56px)!important}
+ .prose{padding:0 6px!important;gap:10px!important}
+ .prose section{padding:20px!important;background:rgba(9,11,19,.80)!important;backdrop-filter:blur(9px)!important}
+ .prose section:before{opacity:.16;background-size:auto 125%;background-position:center center}
+}
+
 :root{--theme-feature-opacity:0.075}
 @media(max-width:620px){.art-backdrop[data-layout="poster-wall"]{opacity:.46}.poster-slot{display:block!important;width:142px!important;height:176px!important;min-height:0!important;opacity:calc(var(--poster-o)*.42)!important}.poster-left{left:-82px!important}.poster-right{right:-82px!important}.poster-slot:nth-child(n+3){display:none!important}.hero-zone{position:relative;z-index:4}}

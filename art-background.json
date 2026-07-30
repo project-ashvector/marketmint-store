@@ -1,5 +1,5 @@
 {
-  "builtAt": "2026-07-30T21:08:02+00:00",
+  "builtAt": "2026-07-30T21:33:13+00:00",
   "enabled": true,
   "randomizedOnBuild": true,
   "desktopDensity": 6,
@@ -22,6 +22,8 @@
   "titleCardBackground": "assets/hero/ebe-title-card-background.webp",
   "titleCardBackgroundMode": "permanent-collage-mural",
   "titleCardBackgroundPermanent": true,
+  "informationPanelsUseTitleCardBackground": true,
+  "informationCardSurface": "mural-glass",
   "catalogSurface": "transparent-glass",
   "orbPlate": "transparent",
   "siteBackground": "assets/site-background.webp",
