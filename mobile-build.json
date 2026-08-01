@@ -1,8 +1,8 @@
 {
-  "builtAt": "2026-08-01T05:40:07+00:00",
-  "assetVersion": "20260801054007",
+  "builtAt": "2026-08-01T06:25:01+00:00",
+  "assetVersion": "20260801062501",
   "professionalPhoneDesign": true,
-  "mobileDesignVersion": 9,
+  "mobileDesignVersion": 10,
   "breakpoints": [
     900,
     620,
@@ -16,5 +16,8 @@
   "mobileNavigation": true,
   "singleColumnCatalog": true,
   "stickyMobileBuyBar": true,
-  "backgroundArtReducedOnPhone": true
+  "backgroundArtReducedOnPhone": true,
+  "routePersistence": true,
+  "introSkip": true,
+  "storeNewTab": true
 }
