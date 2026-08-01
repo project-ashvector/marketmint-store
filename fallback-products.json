@@ -574,5 +574,29 @@
     "homepagePlacement": "normal",
     "relatedGroup": "",
     "pageUrl": "products/ebstine-graphic-t-shirt/"
+  },
+  {
+    "id": "e5ae7749-f861-4c6f-ad38-7c82e0c35780",
+    "name": "DARK BRANDON GRAPHIC T-SHIRT",
+    "slug": "dark-brandon-graphic-t-shirt",
+    "description": "",
+    "price": 35.0,
+    "currency": "USD",
+    "image": "https://imgproxy.fourthwall.dev/YIAZUeMFC54MHIRPbO3ZkuOOAetW1IxBNbg4yCVJ5VY/w:720/sm:1/enc/EYRYLHUxAp8l0z8O/mp6foqEeOJNNWHGn/OyhKF3HizNEePawO/ha1Kc4CmvWUtXiht/ziLsqS-5uLA6ecMC/kSDFNMLl0rm1fKpz/_Vc96_w8RiVemCGT/QgEt4zl3alMaUK8s/QOra6QHeyy4oQDoe/23UvbYqerHKh7ZKZ/JVqbJ2-nkVu4J6oe/rDakv1jA5z_1TMnT/duEo6T8V4zaKUmvz/2K45xCEuYbhABYyk/1-cVdKzwYfc.jpg",
+    "url": "https://ebedesigns-shop.fourthwall.com/products/dark-brandon-graphic-t-shirt",
+    "status": "published",
+    "productType": "merchandise",
+    "storeCategory": "shirts",
+    "storeCategoryLabel": "T-Shirts",
+    "quality": 100,
+    "salesCount": 0,
+    "createdAt": "2026-08-01T09:01:22.626096Z",
+    "variantId": "dbcf62a6-d664-4d60-adc1-0dc02bc2856c",
+    "displayVisible": true,
+    "displayOrder": 1000,
+    "customBadge": "",
+    "homepagePlacement": "normal",
+    "relatedGroup": "",
+    "pageUrl": "products/dark-brandon-graphic-t-shirt/"
   }
 ]

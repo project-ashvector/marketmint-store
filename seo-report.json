@@ -1,18 +1,18 @@
 {
-  "builtAt": "2026-08-01T09:00:01+00:00",
+  "builtAt": "2026-08-01T09:03:50+00:00",
   "publicBase": "https://ebedesigns.online",
-  "productPages": 24,
+  "productPages": 25,
   "sitemap": true,
   "structuredData": true,
   "mobileOptimized": true,
   "mobileProfessionalV2": true,
   "mobileDesignVersion": 10,
-  "assetVersion": "20260801090001",
+  "assetVersion": "20260801090350",
   "backgroundArt": true,
   "revenueTrackingEnabled": false,
   "indexNowEnabled": true,
-  "promotionKits": 24,
+  "promotionKits": 25,
   "merchantFeed": true,
-  "merchantFeedProducts": 24,
+  "merchantFeedProducts": 25,
   "imageSitemap": true
 }
