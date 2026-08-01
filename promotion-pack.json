@@ -329,11 +329,19 @@
   },
   {
     "name": "Small Business Content Planning Tracker Toolkit",
+    "slug": "small-business-content-planning-tracker-toolkit-2",
+    "landingPage": "https://ebedesigns.online/products/small-business-content-planning-tracker-toolkit-2/",
+    "checkout": "https://ebedesigns-shop.fourthwall.com/products/small-business-content-planning-tracker-toolkit",
+    "image": "https://ebedesigns.online/assets/products/small-business-content-planning-tracker-toolkit-2.png",
+    "price": 13.4
+  },
+  {
+    "name": "Small Business Content Planning Tracker Toolkit",
     "slug": "small-business-content-planning-tracker-toolkit",
     "landingPage": "https://ebedesigns.online/products/small-business-content-planning-tracker-toolkit/",
     "checkout": "https://ebedesigns-shop.fourthwall.com/products/small-business-content-planning-tracker-toolkit",
     "image": "https://ebedesigns.online/assets/products/small-business-content-planning-tracker-toolkit.png",
-    "price": 9.57
+    "price": 13.4
   },
   {
     "name": "STARTED FROM THE BOTTOM NOW IM MIDS GRAPHIC T-SHIRT",

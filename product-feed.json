@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-01T06:40:03+00:00",
+  "generatedAt": "2026-08-01T06:44:31+00:00",
   "store": "ebedesigns",
   "products": [
     {
@@ -536,6 +536,19 @@
       "identifier_exists": "no"
     },
     {
+      "id": "small-business-content-planning-tracker-toolkit-2",
+      "title": "Small Business Content Planning Tracker Toolkit",
+      "description": "A practical digital toolkit for small business owners planning consistent posts. It turns small business content planning into a repeatable workflow with editable trackers, printable HTML pages, plain-text instructions, and a quick-start guide. Files are designed to work with common spreadsheet and web-browser tools without a subscription.",
+      "link": "https://ebedesigns.online/products/small-business-content-planning-tracker-toolkit-2/",
+      "image_link": "https://ebedesigns.online/assets/products/small-business-content-planning-tracker-toolkit-2.png",
+      "availability": "in_stock",
+      "condition": "new",
+      "price": "13.40 USD",
+      "brand": "ebedesigns",
+      "product_type": "Programs",
+      "identifier_exists": "no"
+    },
+    {
       "id": "small-business-content-planning-tracker-toolkit",
       "title": "Small Business Content Planning Tracker Toolkit",
       "description": "A practical digital toolkit for small business owners planning consistent posts. It turns small business content planning into a repeatable workflow with editable trackers, printable HTML pages, plain-text instructions, and a quick-start guide. Files are designed to work with common spreadsheet and web-browser tools without a subscription.",
@@ -543,7 +556,7 @@
       "image_link": "https://ebedesigns.online/assets/products/small-business-content-planning-tracker-toolkit.png",
       "availability": "in_stock",
       "condition": "new",
-      "price": "9.57 USD",
+      "price": "13.40 USD",
       "brand": "ebedesigns",
       "product_type": "Programs",
       "identifier_exists": "no"
