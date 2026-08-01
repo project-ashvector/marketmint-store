@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-01T07:47:11+00:00",
+  "generatedAt": "2026-08-01T08:29:38+00:00",
   "store": "ebedesigns",
   "products": [
     {
@@ -65,6 +65,19 @@
       "price": "5.29 USD",
       "brand": "ebedesigns",
       "product_type": "Stickers",
+      "identifier_exists": "no"
+    },
+    {
+      "id": "ebstine-graphic-t-shirt",
+      "title": "EBSTINE GRAPHIC T-SHIRT",
+      "description": "EBSTINE GRAPHIC T-SHIRT",
+      "link": "https://ebedesigns.online/products/ebstine-graphic-t-shirt/",
+      "image_link": "https://imgproxy.fourthwall.dev/lt2mPvo2dWemRZhxF2MBfmqLLapaJDt7uc2bnIv8OTg/w:720/sm:1/enc/8QZ-TTukDDnoL-d5/3K6Y8QYg5nmFO62l/sKIDs97a7mAnJRha/j-aCoXObRyLW64x0/UiG3iVl6VPs0sZNa/vni5jrWId7mwOdqQ/fqXcIro0KDcNZZOD/WCBsZHSEFjxg5ouF/ijh1GFAQHVW0eeAO/6s4kwgtqQzN2lDEA/EXwwQeyNU3eCO1NO/61s1QbpactpecAQW/uFLnyNaW25uw9wj0/KcHhbf7o-2Uup5q5/_NQC5_AyueY.jpg",
+      "availability": "in_stock",
+      "condition": "new",
+      "price": "35.00 USD",
+      "brand": "ebedesigns",
+      "product_type": "Shirts",
       "identifier_exists": "no"
     },
     {
