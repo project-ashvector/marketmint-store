@@ -1,0 +1,1 @@
+Run final Android 15 test after moving fullscreen setup to the correct lifecycle point.
