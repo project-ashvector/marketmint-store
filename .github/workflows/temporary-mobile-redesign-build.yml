@@ -22,7 +22,9 @@ jobs:
           set -euo pipefail
           mkdir -p mobile-control-android/project
           base64 --decode mobile-control-android/source.fixed.b64 | tar -xzf - -C mobile-control-android/project
-          base64 --decode mobile-control-android/overrides.v115.b64 | tar -xzf - -C mobile-control-android/project
+          cat mobile-control-android/override-parts/part-* > "$RUNNER_TEMP/overrides.v115.b64"
+          test "$(sha256sum "$RUNNER_TEMP/overrides.v115.b64" | cut -d' ' -f1)" = "4a64d44ad055c03415cde027de1f5e3f14e74e7c17f8c9bdc690122f1db7f95c"
+          base64 --decode "$RUNNER_TEMP/overrides.v115.b64" | tar -xzf - -C mobile-control-android/project
           mkdir -p mobile-control-android/project/app/src/main/res/drawable-nodpi
           cp assets/site-background.png mobile-control-android/project/app/src/main/res/drawable-nodpi/site_background.png
 
@@ -40,16 +42,13 @@ jobs:
         with:
           gradle-version: '8.13'
 
-      - name: Generate and preserve signing key
+      - name: Generate release signing key
         run: |
           set -euo pipefail
-          mkdir -p signing-backup
           password="$(openssl rand -hex 24)"
           echo "::add-mask::$password"
-          keytool -genkeypair -keystore "$RUNNER_TEMP/marketmint-mobile-v1.jks" -storepass "$password" -keypass "$password" -alias marketmint -keyalg RSA -keysize 4096 -validity 10000 -dname 'CN=MarketMint Mobile, OU=EBE Designs, O=EBE Designs, L=Menlo Park, ST=California, C=US'
-          cp "$RUNNER_TEMP/marketmint-mobile-v1.jks" signing-backup/MarketMint-Mobile-Signing-Key-v1.jks
-          printf 'Keep this file private. It is required to publish installable updates to MarketMint Mobile v1.15.0 and later.\n\nKeystore password: %s\nKey password: %s\nAlias: marketmint\n' "$password" "$password" > signing-backup/SIGNING-KEY-CREDENTIALS.txt
-          echo "MM_KEYSTORE_PATH=$RUNNER_TEMP/marketmint-mobile-v1.jks" >> "$GITHUB_ENV"
+          keytool -genkeypair -keystore "$RUNNER_TEMP/marketmint.jks" -storepass "$password" -keypass "$password" -alias marketmint -keyalg RSA -keysize 4096 -validity 10000 -dname 'CN=MarketMint Mobile, OU=EBE Designs, O=EBE Designs, L=Menlo Park, ST=California, C=US'
+          echo "MM_KEYSTORE_PATH=$RUNNER_TEMP/marketmint.jks" >> "$GITHUB_ENV"
           echo "MM_KEYSTORE_PASSWORD=$password" >> "$GITHUB_ENV"
           echo "MM_KEY_PASSWORD=$password" >> "$GITHUB_ENV"
           echo "MM_KEY_ALIAS=marketmint" >> "$GITHUB_ENV"
@@ -87,10 +86,3 @@ jobs:
           name: MarketMint-Mobile-Control-v1.15.0
           path: release/
           retention-days: 30
-
-      - name: Upload signing backup
-        uses: actions/upload-artifact@v4
-        with:
-          name: MarketMint-Mobile-Signing-Backup-v1
-          path: signing-backup/
-          retention-days: 1
