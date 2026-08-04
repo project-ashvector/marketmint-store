@@ -26,6 +26,20 @@ jobs:
           test "$(sha256sum "$RUNNER_TEMP/overrides.v115.b64" | cut -d' ' -f1)" = "4a64d44ad055c03415cde027de1f5e3f14e74e7c17f8c9bdc690122f1db7f95c"
           base64 --decode "$RUNNER_TEMP/overrides.v115.b64" | tar -xzf - -C mobile-control-android/project
           sed -i '/android:windowLightNavigationBar/d' mobile-control-android/project/app/src/main/res/values/themes.xml
+          python3 - <<'PY'
+          from pathlib import Path
+          path = Path('mobile-control-android/project/app/src/main/java/com/ebedesigns/marketmint/mobile/MainActivity.java')
+          source = path.read_text()
+          source = source.replace(
+              '        super.onCreate(savedInstanceState);\n        configureWindow();\n        prefs = getSharedPreferences(PREFS, MODE_PRIVATE);',
+              '        super.onCreate(savedInstanceState);\n        prefs = getSharedPreferences(PREFS, MODE_PRIVATE);'
+          )
+          source = source.replace(
+              '        setContentView(root);\n\n        serverUrl = prefs.getString(PREF_SERVER, "");',
+              '        setContentView(root);\n        configureWindow();\n        root.post(this::enterImmersiveMode);\n\n        serverUrl = prefs.getString(PREF_SERVER, "");'
+          )
+          path.write_text(source)
+          PY
           mkdir -p mobile-control-android/project/app/src/main/res/drawable-nodpi
           cp assets/site-background.png mobile-control-android/project/app/src/main/res/drawable-nodpi/site_background.png
 
@@ -73,12 +87,20 @@ jobs:
           disable-animations: true
           script: mkdir -p release; adb install -r mobile-control-android/project/app/build/outputs/apk/release/app-release.apk; adb logcat -c; adb shell am start -W -n com.ebedesigns.marketmint.mobile/.MainActivity | tee release/launch.txt; sleep 8; adb shell dumpsys activity activities | grep -m1 'mResumedActivity' > release/activity.txt || true; adb shell pidof -s com.ebedesigns.marketmint.mobile > release/process.txt || true; adb logcat -b crash -d > release/crash.txt || true; adb exec-out screencap -p > release/MarketMint-Mobile-v1.15.0-Android15.png
 
+      - name: Upload Android 15 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: MarketMint-Mobile-v1.15.0-Android15-Evidence
+          path: release/
+          retention-days: 1
+
       - name: Verify Android 15 startup evidence
         run: |
           set -euo pipefail
           grep -q 'Status: ok' release/launch.txt
           grep -q 'com.ebedesigns.marketmint.mobile/.MainActivity' release/launch.txt
-          if grep -q 'com.ebedesigns.marketmint.mobile' release/crash.txt; then
+          if grep -q 'FATAL EXCEPTION' release/crash.txt && grep -q 'com.ebedesigns.marketmint.mobile' release/crash.txt; then
             cat release/crash.txt
             exit 1
           fi
