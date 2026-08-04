@@ -12,25 +12,173 @@ permissions:
   contents: read
 
 jobs:
-  inspect-source:
+  build-and-test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Assemble Android project
+
+      - name: Assemble brighter mobile source
         run: |
           set -euo pipefail
           mkdir -p mobile-control-android/project
           base64 --decode mobile-control-android/source.fixed.b64 | tar -xzf - -C mobile-control-android/project
           cat mobile-control-android/override-parts/part-* > "$RUNNER_TEMP/overrides.b64"
           base64 --decode "$RUNNER_TEMP/overrides.b64" | tar -xzf - -C mobile-control-android/project
+          test "$(sha256sum mobile-control-android/readability-v1151.b64 | cut -d' ' -f1)" = "da051e69b333fad23ce04675a4906f3b3e7298da9fbe4a76bdea0d063de0071a"
+          base64 --decode mobile-control-android/readability-v1151.b64 | tar -xzf - -C mobile-control-android/project
           sed -i '/android:windowLightNavigationBar/d' mobile-control-android/project/app/src/main/res/values/themes.xml
           mkdir -p mobile-control-android/project/app/src/main/res/drawable-nodpi
           cp assets/site-background.png mobile-control-android/project/app/src/main/res/drawable-nodpi/site_background.png
-      - name: Package editable source
-        run: |
-          tar -czf MarketMint-Mobile-Assembled-Source.tgz -C mobile-control-android/project .
-      - uses: actions/upload-artifact@v4
+
+      - uses: actions/setup-java@v5
         with:
-          name: MarketMint-Mobile-Assembled-Source
-          path: MarketMint-Mobile-Assembled-Source.tgz
+          distribution: temurin
+          java-version: '17'
+
+      - uses: android-actions/setup-android@v3
+
+      - name: Install Android SDK
+        run: sdkmanager 'platforms;android-35' 'build-tools;35.0.0'
+
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.13'
+
+      - name: Generate release signing key
+        run: |
+          set -euo pipefail
+          password="$(openssl rand -hex 24)"
+          echo "::add-mask::$password"
+          keytool -genkeypair -keystore "$RUNNER_TEMP/marketmint.jks" -storepass "$password" -keypass "$password" -alias marketmint -keyalg RSA -keysize 4096 -validity 10000 -dname 'CN=MarketMint Mobile, OU=EBE Designs, O=EBE Designs, L=Menlo Park, ST=California, C=US'
+          echo "MM_KEYSTORE_PATH=$RUNNER_TEMP/marketmint.jks" >> "$GITHUB_ENV"
+          echo "MM_KEYSTORE_PASSWORD=$password" >> "$GITHUB_ENV"
+          echo "MM_KEY_PASSWORD=$password" >> "$GITHUB_ENV"
+          echo "MM_KEY_ALIAS=marketmint" >> "$GITHUB_ENV"
+
+      - name: Unit test, lint, and build APKs
+        working-directory: mobile-control-android/project
+        run: gradle --no-daemon testReleaseUnitTest lintRelease assembleRelease assembleDebug
+
+      - name: Verify release signature
+        run: |
+          apk='mobile-control-android/project/app/build/outputs/apk/release/app-release.apk'
+          "$ANDROID_SDK_ROOT/build-tools/35.0.0/apksigner" verify --verbose --print-certs "$apk"
+
+      - name: Create mock MarketMint dashboard
+        run: |
+          set -euo pipefail
+          mkdir -p mock-marketmint
+          cp assets/site-background.png mock-marketmint/icon.png
+          cat > mock-marketmint/index.html <<'HTML'
+          <!doctype html>
+          <html>
+          <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width,initial-scale=1">
+            <title>MarketMint</title>
+            <style>
+              :root{--app-card-mural:linear-gradient(135deg,rgba(61,35,104,.55),rgba(10,12,24,.82));}
+              *{box-sizing:border-box} body{margin:0;background:#080910;color:#a8a8b8;font:14px Arial,sans-serif;background-image:linear-gradient(rgba(5,6,12,.84),rgba(5,6,12,.84)),url('/icon.png');background-size:cover;background-attachment:fixed}
+              .shell{display:grid;grid-template-columns:290px 1fr;min-height:100vh}.sidebar{padding:20px;background:#0b0c14}.brand{display:flex;gap:12px;align-items:center;padding:12px}.brand-icon{width:46px;height:46px}.brand-copy{display:grid}.primary-navigation{display:grid;gap:8px}.nav-group{border-radius:14px}.nav-group-button{width:100%;display:grid;grid-template-columns:24px 1fr 16px;gap:8px;align-items:center;padding:10px;border:0;background:transparent;color:#aaa;text-align:left}.nav-group-copy{display:grid}.nav-group-copy small{font-size:10px}.nav-submenu{display:grid;gap:4px;padding:0 8px 8px 36px}.nav-button{border:1px solid #22243a;background:#121421;color:#999;padding:8px;border-radius:10px;text-align:left}.main{padding:18px}.topbar{display:flex;justify-content:space-between;padding:12px}.top-actions{display:flex;gap:8px}.button{display:inline-flex;align-items:center;justify-content:center;padding:10px 14px;border-radius:12px;border:1px solid #46376b;background:#251b3b;color:#ddd;text-decoration:none}.context-nav{display:flex;gap:6px;padding:8px}.context-nav-button{border:0;background:#141624;color:#aaa;padding:8px;border-radius:10px}.dashboard-hero,.panel{margin-bottom:14px;padding:18px;border:1px solid #25283b;border-radius:18px;background:rgba(10,11,19,.88)}.dashboard-hero h2{font-size:42px;color:#eee;margin:8px 0}.dashboard-hero-actions{display:flex;gap:8px}.dashboard-metric-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.metric-card{padding:14px;border:1px solid #292b42;border-radius:14px;background:#11131e}.metric-card strong{display:block;font-size:24px;color:#eee}.dashboard-main-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.dashboard-action{display:grid;grid-template-columns:32px 1fr auto;gap:8px;padding:12px;border:1px solid #292b42;border-radius:14px;background:#11131e}.eyebrow{color:#a56cff;font-weight:700;letter-spacing:.12em}.muted{color:#898a9b}.side-status,.sidebar-footer{margin-top:12px;padding:12px;color:#888}
+            </style>
+          </head>
+          <body>
+            <div class="ambient"></div>
+            <div class="shell">
+              <aside class="sidebar">
+                <div class="brand"><img class="brand-icon" src="/icon.png"><div class="brand-copy"><strong>MarketMint</strong><small>Desktop command center</small></div></div>
+                <nav class="primary-navigation">
+                  <div class="nav-group"><button class="nav-group-button"><span>▣</span><span class="nav-group-copy"><strong>Dashboard</strong><small>Overview and next steps</small></span><span class="nav-caret">›</span></button><div class="nav-submenu"><button class="nav-button nav-subitem active" data-view="dashboard">Command center</button><button class="nav-button nav-subitem">Activity</button></div></div>
+                  <div class="nav-group"><button class="nav-group-button"><span>▦</span><span class="nav-group-copy"><strong>Store</strong><small>Catalog and collections</small></span><span class="nav-caret">›</span></button><div class="nav-submenu"><button class="nav-button nav-subitem">Catalog</button><button class="nav-button nav-subitem">Collections</button></div></div>
+                  <div class="nav-group"><button class="nav-group-button"><span>↗</span><span class="nav-group-copy"><strong>Marketing</strong><small>Campaigns and traffic</small></span><span class="nav-caret">›</span></button><div class="nav-submenu"><button class="nav-button nav-subitem">Campaigns</button><button class="nav-button nav-subitem">Audience</button></div></div>
+                  <div class="nav-group"><button class="nav-group-button"><span>◎</span><span class="nav-group-copy"><strong>Sales & Customers</strong><small>Orders and customer care</small></span><span class="nav-caret">›</span></button><div class="nav-submenu"><button class="nav-button nav-subitem">Orders</button><button class="nav-button nav-subitem">Customers</button></div></div>
+                  <div class="nav-group"><button class="nav-group-button"><span>✓</span><span class="nav-group-copy"><strong>Safety & Backups</strong><small>Health and restore points</small></span><span class="nav-caret">›</span></button></div>
+                  <div class="nav-group"><button class="nav-group-button"><span>⚙</span><span class="nav-group-copy"><strong>Settings</strong><small>Appearance and connections</small></span><span class="nav-caret">›</span></button></div>
+                </nav>
+                <div class="side-status">● Mobile control connected</div><div class="sidebar-footer">MarketMint v1.15.1</div>
+              </aside>
+              <main class="main">
+                <div class="topbar"><div><h1 id="pageTitle">Dashboard</h1></div><div class="top-actions"><a class="button">Sync store</a><a class="button">Run maintenance</a></div></div>
+                <div class="context-nav"><button class="context-nav-button">Overview</button><button class="context-nav-button">Next steps</button><button class="context-nav-button">Health</button></div>
+                <section class="dashboard-hero"><div><span class="eyebrow">COMMAND CENTER</span><h2>Dashboard</h2><p class="muted">Everything important from your store, organized for a phone screen.</p><div class="dashboard-hero-actions"><a class="button">Sync store</a><a class="button">Run maintenance</a></div></div></section>
+                <section class="panel"><span class="eyebrow">TODAY AT A GLANCE</span><h2>3 useful next steps ready.</h2><p class="muted">MarketMint combined the latest catalog, order, storefront, and safety information into one prioritized list.</p></section>
+                <div class="dashboard-metric-grid"><div class="metric-card"><small>Orders</small><strong>12</strong><span class="muted">This week</span></div><div class="metric-card"><small>Products</small><strong>84</strong><span class="muted">Live</span></div><div class="metric-card"><small>Health</small><strong>Good</strong><span class="muted">No issues</span></div></div>
+                <div class="dashboard-main-grid"><section class="panel"><h3>Next steps</h3><div class="dashboard-action"><span>1</span><div><strong>Review new products</strong><p class="muted">Three items need a quick check.</p></div><a class="button dashboard-action-button">Open</a></div></section><section class="panel"><h3>Store status</h3><p class="muted">Your storefront is online and synced.</p></section></div>
+              </main>
+            </div>
+          </body>
+          </html>
+          HTML
+          nohup python3 -m http.server 8766 --bind 0.0.0.0 --directory mock-marketmint > "$RUNNER_TEMP/mock-marketmint.log" 2>&1 &
+          echo $! > "$RUNNER_TEMP/mock-marketmint.pid"
+          sleep 2
+          curl --fail http://127.0.0.1:8766/ >/dev/null
+
+      - name: Install and capture Android 15 readability evidence
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 35
+          arch: x86_64
+          target: default
+          profile: pixel_6
+          disable-animations: true
+          script: |
+            set -e
+            mkdir -p release
+            adb install -r mobile-control-android/project/app/build/outputs/apk/debug/app-debug.apk
+            adb shell pm clear com.ebedesigns.marketmint.mobile
+            cat > /tmp/marketmint-prefs.xml <<'XML'
+            <?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+            <map>
+              <string name="server_url">http://10.0.2.2:8766</string>
+              <string name="pairing_token">1234567890abcdef</string>
+            </map>
+            XML
+            adb push /tmp/marketmint-prefs.xml /data/local/tmp/marketmint-prefs.xml
+            adb shell chmod 644 /data/local/tmp/marketmint-prefs.xml
+            adb shell run-as com.ebedesigns.marketmint.mobile mkdir -p shared_prefs
+            adb shell run-as com.ebedesigns.marketmint.mobile cp /data/local/tmp/marketmint-prefs.xml shared_prefs/marketmint_mobile.xml
+            adb shell run-as com.ebedesigns.marketmint.mobile chmod 600 shared_prefs/marketmint_mobile.xml
+            adb logcat -c
+            adb shell am start -W -n com.ebedesigns.marketmint.mobile/.MainActivity | tee release/launch.txt
+            sleep 12
+            adb exec-out screencap -p > release/MarketMint-v1.15.1-Dashboard.png
+            adb shell input tap 72 96
+            sleep 3
+            adb exec-out screencap -p > release/MarketMint-v1.15.1-Menu.png
+            adb logcat -b crash -d > release/crash.txt || true
+
+      - name: Upload Android 15 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: MarketMint-Mobile-v1.15.1-Readability-Evidence
+          path: release/
           retention-days: 1
+
+      - name: Verify Android 15 startup evidence
+        run: |
+          set -euo pipefail
+          grep -q 'Status: ok' release/launch.txt
+          if grep -q 'Process: com.ebedesigns.marketmint.mobile' release/crash.txt; then
+            cat release/crash.txt
+            exit 1
+          fi
+          test -s release/MarketMint-v1.15.1-Dashboard.png
+          test -s release/MarketMint-v1.15.1-Menu.png
+
+      - name: Package verified APK
+        run: |
+          set -euo pipefail
+          apk='mobile-control-android/project/app/build/outputs/apk/release/app-release.apk'
+          cp "$apk" release/MarketMint-Mobile-Control-v1.15.1.apk
+          sha256sum release/MarketMint-Mobile-Control-v1.15.1.apk > release/SHA256SUMS.txt
+
+      - name: Upload verified APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: MarketMint-Mobile-Control-v1.15.1
+          path: |
+            release/MarketMint-Mobile-Control-v1.15.1.apk
+            release/SHA256SUMS.txt
+          retention-days: 30
