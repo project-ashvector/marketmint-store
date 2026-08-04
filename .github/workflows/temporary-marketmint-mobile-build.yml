@@ -54,19 +54,7 @@ jobs:
           target: default
           profile: pixel_6
           disable-animations: true
-          script: |
-            set -eu
-            apk='mobile-control-android/project/app/build/outputs/apk/release/app-release.apk'
-            adb install -r "$apk"
-            adb logcat -c
-            adb shell am start -W -n com.ebedesigns.marketmint.mobile/.MainActivity
-            sleep 5
-            pid="$(adb shell pidof -s com.ebedesigns.marketmint.mobile | tr -d '\r')"
-            test -n "$pid"
-            if adb logcat -b crash -d | grep -q 'com.ebedesigns.marketmint.mobile'; then
-              adb logcat -b crash -d
-              exit 1
-            fi
+          script: adb install -r mobile-control-android/project/app/build/outputs/apk/release/app-release.apk && adb logcat -c && adb shell am start -W -n com.ebedesigns.marketmint.mobile/.MainActivity && sleep 5 && test -n "$(adb shell pidof -s com.ebedesigns.marketmint.mobile | tr -d '\r')" && ! adb logcat -b crash -d | grep -q 'com.ebedesigns.marketmint.mobile'
       - name: Package verified APK
         run: |
           apk='mobile-control-android/project/app/build/outputs/apk/release/app-release.apk'
