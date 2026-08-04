@@ -1,0 +1,1 @@
+Trigger corrected Android 15 install and launch smoke test on 2026-08-04.
