@@ -55,7 +55,7 @@ jobs:
           profile: pixel_6
           disable-animations: true
           script: |
-            set -euo pipefail
+            set -eu
             apk='mobile-control-android/project/app/build/outputs/apk/release/app-release.apk'
             adb install -r "$apk"
             adb logcat -c
