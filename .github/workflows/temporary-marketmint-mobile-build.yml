@@ -45,7 +45,7 @@ jobs:
       - name: Verify and package
         run: |
           apk='mobile-control-android/project/app/build/outputs/apk/release/app-release.apk'
-          apksigner verify --verbose --print-certs "$apk"
+          "$ANDROID_SDK_ROOT/build-tools/35.0.0/apksigner" verify --verbose --print-certs "$apk"
           mkdir release
           cp "$apk" release/MarketMint-Mobile-Control-v1.14.1.apk
           sha256sum release/MarketMint-Mobile-Control-v1.14.1.apk > release/SHA256SUMS.txt
