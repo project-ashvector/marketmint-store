@@ -25,7 +25,7 @@ jobs:
           cat mobile-control-android/override-parts/part-* > "$RUNNER_TEMP/overrides.v115.b64"
           test "$(sha256sum "$RUNNER_TEMP/overrides.v115.b64" | cut -d' ' -f1)" = "4a64d44ad055c03415cde027de1f5e3f14e74e7c17f8c9bdc690122f1db7f95c"
           base64 --decode "$RUNNER_TEMP/overrides.v115.b64" | tar -xzf - -C mobile-control-android/project
-          test "$(sha256sum mobile-control-android/overrides.v1151.b64 | cut -d' ' -f1)" = "34922acc0e876f9778e3efe29b970f027903d854c6b0e241aa13b24c5f309c5f"
+          test "$(sha256sum mobile-control-android/overrides.v1151.b64 | cut -d' ' -f1)" = "9bb87b45672f61c53d46046fff0fb31bbe6f7a8b8189ab2d51a1fa5745516e36"
           base64 --decode mobile-control-android/overrides.v1151.b64 | tar -xzf - -C mobile-control-android/project
           sed -i '/android:windowLightNavigationBar/d' mobile-control-android/project/app/src/main/res/values/themes.xml
           sed -i "s/versionCode 11500/versionCode 11501/" mobile-control-android/project/app/build.gradle
@@ -33,7 +33,7 @@ jobs:
           mkdir -p mobile-control-android/project/app/src/main/res/drawable-nodpi
           cp assets/site-background.png mobile-control-android/project/app/src/main/res/drawable-nodpi/site_background.png
 
-      - name: Verify brightness and drawer corrections
+      - name: Verify brightness, drawer, and fullscreen corrections
         run: |
           set -euo pipefail
           source='mobile-control-android/project/app/src/main/java/com/ebedesigns/marketmint/mobile/MainActivity.java'
@@ -43,6 +43,8 @@ jobs:
           grep -q "classList.remove('mm-drawer-open')" "$source"
           grep -q "window.addEventListener('hashchange',close)" "$source"
           grep -q 'background-color:rgba(20,21,35,.92)' "$source"
+          grep -q 'root.post(this::enterImmersiveMode)' "$source"
+          ! sed -n '/private void configureWindow()/,/private void enterImmersiveMode()/p' "$source" | grep -q 'enterImmersiveMode();'
 
       - uses: actions/setup-java@v5
         with:
