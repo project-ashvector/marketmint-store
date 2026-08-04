@@ -25,6 +25,7 @@ jobs:
           cat mobile-control-android/override-parts/part-* > "$RUNNER_TEMP/overrides.v115.b64"
           test "$(sha256sum "$RUNNER_TEMP/overrides.v115.b64" | cut -d' ' -f1)" = "4a64d44ad055c03415cde027de1f5e3f14e74e7c17f8c9bdc690122f1db7f95c"
           base64 --decode "$RUNNER_TEMP/overrides.v115.b64" | tar -xzf - -C mobile-control-android/project
+          sed -i '/android:windowLightNavigationBar/d' mobile-control-android/project/app/src/main/res/values/themes.xml
           mkdir -p mobile-control-android/project/app/src/main/res/drawable-nodpi
           cp assets/site-background.png mobile-control-android/project/app/src/main/res/drawable-nodpi/site_background.png
 
