@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - build/mobile-v1.14.1
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
 
 permissions:
