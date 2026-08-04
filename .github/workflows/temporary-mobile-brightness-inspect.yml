@@ -25,8 +25,9 @@ jobs:
           cat mobile-control-android/override-parts/part-* > "$RUNNER_TEMP/overrides.v115.b64"
           test "$(sha256sum "$RUNNER_TEMP/overrides.v115.b64" | cut -d' ' -f1)" = "4a64d44ad055c03415cde027de1f5e3f14e74e7c17f8c9bdc690122f1db7f95c"
           base64 --decode "$RUNNER_TEMP/overrides.v115.b64" | tar -xzf - -C mobile-control-android/project
-          echo "v1.15.1 override SHA: $(sha256sum mobile-control-android/overrides.v1151.b64 | cut -d' ' -f1)"
-          base64 --decode mobile-control-android/overrides.v1151.b64 | tar -xzf - -C mobile-control-android/project
+          cat mobile-control-android/v1151-parts/part-* > "$RUNNER_TEMP/overrides.v1151.b64"
+          test "$(sha256sum "$RUNNER_TEMP/overrides.v1151.b64" | cut -d' ' -f1)" = "9bb87b45672f61c53d46046fff0fb31bbe6f7a8b8189ab2d51a1fa5745516e36"
+          base64 --decode "$RUNNER_TEMP/overrides.v1151.b64" | tar -xzf - -C mobile-control-android/project
           sed -i '/android:windowLightNavigationBar/d' mobile-control-android/project/app/src/main/res/values/themes.xml
           sed -i "s/versionCode 11500/versionCode 11501/" mobile-control-android/project/app/build.gradle
           sed -i "s/versionName '1.15.0'/versionName '1.15.1'/" mobile-control-android/project/app/build.gradle
