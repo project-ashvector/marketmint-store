@@ -19,11 +19,16 @@ jobs:
       - name: Decode Android project
         run: |
           set -euo pipefail
-          mkdir -p export/project
-          base64 --decode mobile-control-android/source.fixed.b64 | tar -xzf - -C export/project
-      - name: Upload decoded source
+          mkdir -p export/mobile
+          base64 --decode mobile-control-android/source.fixed.b64 | tar -xzf - -C export/mobile
+      - name: Collect desktop app source and assets
+        run: |
+          set -euo pipefail
+          mkdir -p export/repository
+          rsync -a --exclude='.git/' --exclude='export/' --exclude='mobile-control-android/source.fixed.b64' ./ export/repository/
+      - name: Upload inspection source
         uses: actions/upload-artifact@v4
         with:
-          name: MarketMint-Mobile-Source-v1.14.1
-          path: export/project/
+          name: MarketMint-Redesign-Inspection-Source
+          path: export/
           retention-days: 1
