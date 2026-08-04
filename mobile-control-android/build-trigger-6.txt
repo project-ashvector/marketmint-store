@@ -1,0 +1,1 @@
+Trigger final self-contained Android 15 APK install and launch test on 2026-08-04.
