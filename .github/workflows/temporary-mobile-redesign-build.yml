@@ -63,7 +63,7 @@ jobs:
           apk='mobile-control-android/project/app/build/outputs/apk/release/app-release.apk'
           "$ANDROID_SDK_ROOT/build-tools/35.0.0/apksigner" verify --verbose --print-certs "$apk"
 
-      - name: Install, launch, and capture Android 15 test
+      - name: Install, launch, and capture Android 15 evidence
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 35
@@ -71,7 +71,17 @@ jobs:
           target: default
           profile: pixel_6
           disable-animations: true
-          script: mkdir -p release && adb install -r mobile-control-android/project/app/build/outputs/apk/release/app-release.apk && adb logcat -c && adb shell am start -W -n com.ebedesigns.marketmint.mobile/.MainActivity && sleep 5 && test -n "$(adb shell pidof -s com.ebedesigns.marketmint.mobile | tr -d '\r')" && ! adb logcat -b crash -d | grep -q 'com.ebedesigns.marketmint.mobile' && adb exec-out screencap -p > release/MarketMint-Mobile-v1.15.0-Android15.png
+          script: mkdir -p release; adb install -r mobile-control-android/project/app/build/outputs/apk/release/app-release.apk; adb logcat -c; adb shell am start -W -n com.ebedesigns.marketmint.mobile/.MainActivity; sleep 8; adb shell pidof -s com.ebedesigns.marketmint.mobile > release/process.txt || true; adb logcat -b crash -d > release/crash.txt || true; adb exec-out screencap -p > release/MarketMint-Mobile-v1.15.0-Android15.png
+
+      - name: Verify Android 15 startup evidence
+        run: |
+          set -euo pipefail
+          test -s release/process.txt
+          if grep -q 'com.ebedesigns.marketmint.mobile' release/crash.txt; then
+            cat release/crash.txt
+            exit 1
+          fi
+          test -s release/MarketMint-Mobile-v1.15.0-Android15.png
 
       - name: Package verified APK
         run: |
