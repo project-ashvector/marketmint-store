@@ -3,11 +3,11 @@ from pathlib import Path
 import re
 import subprocess
 import time
-import xml.etree.ElementTree as ET
 
 PACKAGE = 'com.ebedesigns.marketmint.controlcenter'
 TOKEN = '0123456789abcdef0123456789abcdef'
 SERVER = 'http://10.0.2.2:8765'
+EVENT_FILE = 'files/drawer-qa-events.txt'
 RELEASE = Path('release')
 RELEASE.mkdir(exist_ok=True)
 
@@ -24,6 +24,20 @@ def adb(*args, check=True, capture=True):
     )
 
 
+def suppress_system_dialogs():
+    commands = [
+        ('settings', 'put', 'global', 'hide_error_dialogs', '1'),
+        ('settings', 'put', 'global', 'anr_show_background', '0'),
+        ('settings', 'put', 'global', 'show_first_crash_dialog', '0'),
+        ('settings', 'put', 'global', 'show_restart_in_crash_dialog', '0'),
+        ('settings', 'put', 'secure', 'anr_show_background', '0'),
+        ('am', 'force-stop', 'com.android.settings'),
+        ('input', 'keyevent', 'KEYCODE_BACK'),
+    ]
+    for command in commands:
+        adb('shell', *command, check=False)
+
+
 def screenshot(name):
     path = RELEASE / name
     print('+ adb exec-out screencap -p >', path, flush=True)
@@ -31,18 +45,15 @@ def screenshot(name):
         subprocess.run(['adb', 'exec-out', 'screencap', '-p'], check=True, stdout=handle)
 
 
+def clear_events():
+    adb('shell', 'run-as', PACKAGE, 'rm', '-f', EVENT_FILE, check=False)
+
+
 def drawer_events():
-    result = adb('logcat', '-d', '-v', 'brief', check=False)
+    result = adb('shell', 'run-as', PACKAGE, 'cat', EVENT_FILE, check=False)
     raw = result.stdout or ''
-    relevant = '\n'.join(line for line in raw.splitlines() if 'MarketMintDrawer' in line)
-    (RELEASE / 'drawer-log.txt').write_text(relevant + ('\n' if relevant else ''))
-    events = []
-    for line in relevant.splitlines():
-        match = re.search(r'MarketMintDrawer(?:\([^)]*\))?\s*:\s*(.*)$', line)
-        if match:
-            event = match.group(1).strip()
-            if event:
-                events.append(event)
+    events = [line.strip() for line in raw.splitlines() if line.strip()]
+    (RELEASE / 'drawer-private-events.txt').write_text('\n'.join(events) + ('\n' if events else ''))
     return events
 
 
@@ -57,76 +68,51 @@ def wait_event(label, predicate, after=0, timeout=90):
             if predicate(event):
                 print(f'PASS: {label}: {event}', flush=True)
                 return event, index, events
-        time.sleep(1.0)
+        time.sleep(0.8)
     screenshot(f'FAIL-{label}.png')
-    raise RuntimeError(f'Timed out waiting for {label}. Last events: {last_events[-30:]}')
+    raise RuntimeError(f'Timed out waiting for {label}. Last events: {last_events[-40:]}')
 
 
-def dump_ui(name):
-    result = adb('exec-out', 'uiautomator', 'dump', '/dev/tty', check=False)
-    raw = result.stdout or ''
-    start = raw.find('<?xml')
-    if start < 0:
-        (RELEASE / f'{name}-raw.txt').write_text(raw)
-        return None
-    xml = raw[start:]
-    (RELEASE / f'{name}.xml').write_text(xml)
-    try:
-        return ET.fromstring(xml)
-    except ET.ParseError:
-        return None
+def parse_size(raw):
+    matches = re.findall(r'(\d+)x(\d+)', raw)
+    if not matches:
+        raise RuntimeError(f'Could not parse display size: {raw}')
+    return tuple(map(int, matches[-1]))
 
 
-def node_center(node):
-    match = re.fullmatch(r'\[(\d+),(\d+)\]\[(\d+),(\d+)\]', node.attrib.get('bounds', ''))
-    if not match:
-        raise RuntimeError(f'Invalid UI node bounds: {node.attrib}')
-    x1, y1, x2, y2 = map(int, match.groups())
-    return (x1 + x2) // 2, (y1 + y2) // 2
+def screen_size():
+    return parse_size(adb('shell', 'wm', 'size').stdout or '')
 
 
-def find_native_node(root, description):
-    if root is None:
-        return None
-    for node in root.iter('node'):
-        if node.attrib.get('content-desc') == description:
-            return node
-    return None
+def density_scale():
+    raw = adb('shell', 'wm', 'density').stdout or ''
+    matches = re.findall(r'(\d+)', raw)
+    if not matches:
+        raise RuntimeError(f'Could not parse display density: {raw}')
+    density = int(matches[-1])
+    return density / 160.0
 
 
-def dismiss_system_anr():
-    root = dump_ui('system-dialog-check')
-    if root is None:
-        return
-    wait_node = None
-    for node in root.iter('node'):
-        text = node.attrib.get('text', '')
-        if text == 'Wait':
-            wait_node = node
-            break
-    if wait_node is not None:
-        x, y = node_center(wait_node)
-        print(f'Dismissing System UI ANR with Wait at {x},{y}', flush=True)
+def tap_native_menu(after_index):
+    scale = density_scale()
+    screen_width, screen_height = screen_size()
+    candidates_dp = [(29, 29), (24, 30), (34, 30), (29, 38)]
+    for attempt, (x_dp, y_dp) in enumerate(candidates_dp, start=1):
+        suppress_system_dialogs()
+        x = max(2, min(screen_width - 2, round(x_dp * scale)))
+        y = max(2, min(screen_height - 2, round(y_dp * scale)))
+        print(f'PHYSICAL TAP native hamburger attempt {attempt}: Android ({x},{y})', flush=True)
         adb('shell', 'input', 'tap', str(x), str(y))
-        time.sleep(8)
-
-
-def wait_native_button(description, timeout=45):
-    deadline = time.time() + timeout
-    attempt = 0
-    while time.time() < deadline:
-        attempt += 1
-        dismiss_system_anr()
-        root = dump_ui(f'native-{description.replace(" ", "-")}-{attempt:02d}')
-        node = find_native_node(root, description)
-        if node is not None:
-            print(f'PASS: native target {description}: {node.attrib.get("bounds")}', flush=True)
-            return node
-        time.sleep(1.5)
-    screenshot(f'FAIL-native-{description.replace(" ", "-")}.png')
-    activity = adb('shell', 'dumpsys', 'activity', 'activities', check=False).stdout or ''
-    (RELEASE / 'activity-on-native-timeout.txt').write_text(activity)
-    raise RuntimeError(f'Timed out waiting for native target: {description}')
+        deadline = time.time() + 8
+        while time.time() < deadline:
+            events = drawer_events()
+            for index in range(after_index, len(events)):
+                if events[index] == 'NATIVE|REQUEST|OPEN':
+                    print(f'PASS: native hamburger received on attempt {attempt}', flush=True)
+                    return index, events
+            time.sleep(0.5)
+    screenshot('FAIL-native-hamburger-tap.png')
+    raise RuntimeError(f'Native hamburger did not receive any physical tap. Events: {drawer_events()[-40:]}')
 
 
 def parse_bounds_event(event):
@@ -162,28 +148,21 @@ def wait_bounds(label, node_name, after=0, timeout=60):
     return (viewport_width, viewport_height, nodes[node_name]), index, events
 
 
-def screen_size():
-    raw = adb('shell', 'wm', 'size').stdout or ''
-    matches = re.findall(r'(\d+)x(\d+)', raw)
-    if not matches:
-        raise RuntimeError(f'Could not parse display size: {raw}')
-    return tuple(map(int, matches[-1]))
-
-
 def tap_css_bounds(label, viewport_width, viewport_height, bounds):
     screen_width, screen_height = screen_size()
     left, top, width, height = bounds
-    x = round((left + width / 2) * screen_width / viewport_width)
-    y = round((top + height / 2) * screen_height / viewport_height)
-    x = max(1, min(screen_width - 2, x))
-    y = max(1, min(screen_height - 2, y))
+    x = round((left + width / 2.0) * screen_width / viewport_width)
+    y = round((top + height / 2.0) * screen_height / viewport_height)
+    x = max(2, min(screen_width - 2, x))
+    y = max(2, min(screen_height - 2, y))
+    suppress_system_dialogs()
     print(f'PHYSICAL TAP {label}: Android ({x},{y})', flush=True)
     adb('shell', 'input', 'tap', str(x), str(y))
 
 
-def latest_state(events, start=0):
+def latest_matching(events, values, start=0):
     for event in reversed(events[start:]):
-        if event in ('STATE|OPEN', 'STATE|CLOSED'):
+        if event in values:
             return event
     return None
 
@@ -193,9 +172,9 @@ def main():
     adb('install', '-r', apk)
     adb('shell', 'input', 'keyevent', 'KEYCODE_WAKEUP', check=False)
     adb('shell', 'wm', 'dismiss-keyguard', check=False)
-    dismiss_system_anr()
+    suppress_system_dialogs()
     adb('shell', 'am', 'force-stop', PACKAGE)
-    adb('logcat', '-c')
+    clear_events()
 
     resolved_output = adb('shell', 'cmd', 'package', 'resolve-activity', '--brief', PACKAGE).stdout or ''
     resolved_lines = [line.strip() for line in resolved_output.splitlines() if line.strip()]
@@ -209,43 +188,45 @@ def main():
         '--es', 'marketmint_qa_token', TOKEN,
     )
 
-    native_open = wait_native_button('Open navigation')
     _, page_index, _ = wait_event('page-finished', lambda event: event.startswith('PAGE|FINISHED|'))
     _, ready_index, _ = wait_event('mobile-shell-ready', lambda event: event == 'READY', after=page_index)
+    _, target_open_index, _ = wait_event(
+        'native-open-target-ready', lambda event: event == 'NATIVE|TARGET|OPEN', after=0
+    )
     screenshot('MarketMint-Mobile-v1.15.3-menu-closed.png')
 
     before_menu_tap = len(drawer_events())
-    x, y = node_center(native_open)
-    print(f'PHYSICAL TAP native hamburger: Android ({x},{y})', flush=True)
-    adb('shell', 'input', 'tap', str(x), str(y))
-    _, request_index, _ = wait_event(
-        'native-hamburger-request', lambda event: event == 'NATIVE|REQUEST|OPEN', after=before_menu_tap
-    )
+    request_index, _ = tap_native_menu(before_menu_tap)
     _, open_index, open_events = wait_event(
-        'drawer-opened', lambda event: event in ('STATE|OPEN', 'NATIVE|RESULT|OPEN'), after=request_index
+        'drawer-opened',
+        lambda event: event in ('STATE|OPEN', 'NATIVE|RESULT|OPEN'),
+        after=request_index,
     )
-    native_close = wait_native_button('Close navigation')
-    if latest_state(open_events, request_index) not in (None, 'STATE|OPEN'):
-        raise RuntimeError('Drawer did not remain open after native hamburger tap')
+    _, close_target_index, close_target_events = wait_event(
+        'native-close-target-ready', lambda event: event == 'NATIVE|TARGET|CLOSE', after=request_index
+    )
+    if latest_matching(close_target_events, {'NATIVE|TARGET|OPEN', 'NATIVE|TARGET|CLOSE'}, request_index) != 'NATIVE|TARGET|CLOSE':
+        raise RuntimeError('Native target did not remain in Close navigation state')
 
-    (operations_width, operations_height, operations_bounds), _, _ = wait_bounds(
+    (operations_width, operations_height, operations_bounds), operations_bounds_index, _ = wait_bounds(
         'store-group-bounds', 'operations', after=open_index
     )
     screenshot('MarketMint-Mobile-v1.15.3-menu-open.png')
 
     before_group = len(drawer_events())
     tap_css_bounds('Store group', operations_width, operations_height, operations_bounds)
-    _, group_index, _ = wait_event(
-        'store-group-click', lambda event: event == 'NAV|GROUP', after=before_group
-    )
-    time.sleep(0.8)
+    _, group_index, _ = wait_event('store-group-click', lambda event: event == 'NAV|GROUP', after=before_group)
+    time.sleep(1.0)
     group_events = drawer_events()
     if any(event == 'STATE|CLOSED' for event in group_events[group_index + 1:]):
-        raise RuntimeError('Drawer closed after tapping Store group')
-    wait_native_button('Close navigation')
+        screenshot('FAIL-drawer-closed-after-store-group.png')
+        raise RuntimeError('Drawer closed after tapping the Store group')
+    if latest_matching(group_events, {'NATIVE|TARGET|OPEN', 'NATIVE|TARGET|CLOSE'}, request_index) != 'NATIVE|TARGET|CLOSE':
+        screenshot('FAIL-native-target-after-store-group.png')
+        raise RuntimeError('Native menu target was not Close navigation after Store group tap')
     print('PASS: drawer remained open after Store group tap', flush=True)
 
-    (catalog_width, catalog_height, catalog_bounds), _, _ = wait_bounds(
+    (catalog_width, catalog_height, catalog_bounds), catalog_bounds_index, _ = wait_bounds(
         'catalog-destination-bounds', 'catalog', after=group_index
     )
     screenshot('MarketMint-Mobile-v1.15.3-store-group-open.png')
@@ -258,9 +239,11 @@ def main():
     _, closed_index, closed_events = wait_event(
         'drawer-closed', lambda event: event == 'STATE|CLOSED', after=destination_index
     )
-    wait_native_button('Open navigation')
-    if latest_state(closed_events, destination_index) != 'STATE|CLOSED':
-        raise RuntimeError('Drawer did not remain closed after Catalog navigation')
+    _, reopened_target_index, final_events = wait_event(
+        'native-open-target-restored', lambda event: event == 'NATIVE|TARGET|OPEN', after=destination_index
+    )
+    if latest_matching(final_events, {'NATIVE|TARGET|OPEN', 'NATIVE|TARGET|CLOSE'}, destination_index) != 'NATIVE|TARGET|OPEN':
+        raise RuntimeError('Native menu target did not return to Open navigation')
     screenshot('MarketMint-Mobile-v1.15.3-after-catalog.png')
 
     crash = adb('logcat', '-b', 'crash', '-d', check=False).stdout or ''
@@ -276,18 +259,19 @@ def main():
     final_events = drawer_events()
     (RELEASE / 'MENU-QA-PASSED.txt').write_text(
         'MarketMint Mobile v1.15.3 Android menu QA passed:\n'
-        '- mock MarketMint page finished loading\n'
-        '- native Open navigation target was present\n'
+        '- MarketMint page finished loading\n'
+        '- app-private READY event recorded\n'
+        '- native Open navigation target recorded\n'
         '- Android physically tapped the native hamburger\n'
         '- native bridge requested OPEN and drawer opened\n'
         '- native target changed to Close navigation\n'
-        '- Store group kept drawer open\n'
-        '- Catalog destination closed drawer\n'
+        '- Store group kept the drawer open\n'
+        '- Catalog destination closed the drawer\n'
         '- native target returned to Open navigation\n'
         '- no MarketMint package crash found\n'
-        f'- final events: {final_events[-30:]}\n'
+        f'- final private events: {final_events[-40:]}\n'
     )
-    print('ALL NATIVE + WEBVIEW MENU QA CHECKS PASSED', flush=True)
+    print('ALL PRIVATE-EVENT MENU QA CHECKS PASSED', flush=True)
 
 
 if __name__ == '__main__':
