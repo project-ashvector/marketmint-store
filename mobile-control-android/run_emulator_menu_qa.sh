@@ -22,5 +22,12 @@ if [ "$ready" -ne 1 ]; then
   exit 1
 fi
 
+apk='mobile-build/project/app/build/outputs/apk/debug/app-debug.apk'
+test -f "$apk"
+adb install -r "$apk"
+adb shell cmd package resolve-activity --brief com.ebedesigns.marketmint.controlcenter \
+  | tee release/RESOLVED-ACTIVITY.txt
+grep -v 'No activity found' release/RESOLVED-ACTIVITY.txt | grep -q '/'
+
 python3 mobile-control-android/emulator_phone_fit_test.py
 python3 mobile-control-android/emulator_menu_test.py
