@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - build/marketmint-mobile-v1.15.2-install-fix
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
 
 permissions:
