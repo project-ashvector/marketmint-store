@@ -1,0 +1,150 @@
+name: Build and QA MarketMint Mobile v1.15.3 Menu Fix
+
+on:
+  push:
+    branches:
+      - build/marketmint-mobile-v1.15.3-menu-fix
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-menu-qa:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Check out isolated mobile build branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Reconstruct exact proven v1.15.1 Android source
+        run: |
+          set -euo pipefail
+          git fetch origin build/mobile-v1.15.1-brightness --depth=1
+          mkdir -p mobile-build/project "$RUNNER_TEMP/proven-mobile"
+          git show origin/build/mobile-v1.15.1-brightness:mobile-control-android/source.fixed.b64 \
+            | base64 --decode \
+            | tar -xzf - -C mobile-build/project
+          git archive origin/build/mobile-v1.15.1-brightness \
+            mobile-control-android/override-parts \
+            mobile-control-android/v1151-parts \
+            | tar -xf - -C "$RUNNER_TEMP/proven-mobile"
+          cat "$RUNNER_TEMP/proven-mobile"/mobile-control-android/override-parts/part-* > "$RUNNER_TEMP/overrides.v115.b64"
+          test "$(sha256sum "$RUNNER_TEMP/overrides.v115.b64" | cut -d' ' -f1)" = "4a64d44ad055c03415cde027de1f5e3f14e74e7c17f8c9bdc690122f1db7f95c"
+          base64 --decode "$RUNNER_TEMP/overrides.v115.b64" | tar -xzf - -C mobile-build/project
+          cat "$RUNNER_TEMP/proven-mobile"/mobile-control-android/v1151-parts/part-* > "$RUNNER_TEMP/overrides.v1151.b64"
+          test "$(sha256sum "$RUNNER_TEMP/overrides.v1151.b64" | cut -d' ' -f1)" = "9bb87b45672f61c53d46046fff0fb31bbe6f7a8b8189ab2d51a1fa5745516e36"
+          base64 --decode "$RUNNER_TEMP/overrides.v1151.b64" | tar -xzf - -C mobile-build/project
+          sed -i '/android:windowLightNavigationBar/d' mobile-build/project/app/src/main/res/values/themes.xml
+          mkdir -p mobile-build/project/app/src/main/res/drawable-nodpi
+          cp assets/site-background.png mobile-build/project/app/src/main/res/drawable-nodpi/site_background.png
+          test -f mobile-build/project/app/build.gradle
+          test -f mobile-build/project/app/src/main/java/com/ebedesigns/marketmint/mobile/MainActivity.java
+
+      - name: Apply v1.15.3 repeatable drawer controller
+        run: |
+          set -euo pipefail
+          python3 mobile-control-android/apply-v1153-menu-fix.py
+          source='mobile-build/project/app/src/main/java/com/ebedesigns/marketmint/mobile/MainActivity.java'
+          grep -F 'MOBILE_VERSION = "1.15.3"' "$source"
+          grep -F 'window.__marketMintMobileToggleDrawer=toggleDrawer' "$source"
+          grep -F "event.target.closest('#mmMobileHeader,.nav-group-button')" "$source"
+          grep -F 'transform:translate3d(0,0,0)!important' "$source"
+          grep -F "applicationId 'com.ebedesigns.marketmint.controlcenter'" mobile-build/project/app/build.gradle
+          grep -E 'versionCode +11503' mobile-build/project/app/build.gradle
+          grep -F "versionName '1.15.3'" mobile-build/project/app/build.gradle
+
+      - name: Create clean source backup
+        run: |
+          set -euo pipefail
+          mkdir -p release
+          cd mobile-build/project
+          zip -qr ../../release/MarketMint-Mobile-v1.15.3-SOURCE.zip . \
+            -x '.gradle/*' '*/build/*' 'local.properties'
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install Android build tools
+        run: sdkmanager 'platforms;android-35' 'build-tools;35.0.0'
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.13'
+
+      - name: Run unit tests, lint, debug build, and unsigned release build
+        working-directory: mobile-build/project
+        run: gradle --no-daemon testReleaseUnitTest lintRelease assembleDebug assembleRelease
+
+      - name: Align and verify release metadata
+        run: |
+          set -euo pipefail
+          unsigned='mobile-build/project/app/build/outputs/apk/release/app-release-unsigned.apk'
+          aligned='release/MarketMint-Mobile-Control-v1.15.3-aligned-unsigned.apk'
+          "$ANDROID_HOME/build-tools/35.0.0/zipalign" -p -f 4 "$unsigned" "$aligned"
+          "$ANDROID_HOME/build-tools/35.0.0/zipalign" -c -v 4 "$aligned"
+          cp "$ANDROID_HOME/build-tools/35.0.0/lib/apksigner.jar" release/apksigner.jar
+          "$ANDROID_HOME/build-tools/35.0.0/aapt2" dump badging "$aligned" > release/PACKAGE-METADATA.txt
+          grep -F "package: name='com.ebedesigns.marketmint.controlcenter' versionCode='11503' versionName='1.15.3'" release/PACKAGE-METADATA.txt
+          cat > release/BUILD-REPORT.txt <<'EOF'
+          MarketMint Mobile v1.15.3 build checks completed:
+          - exact proven v1.15.1 source reconstructed with two SHA-256 verified override bundles
+          - repeatable drawer controller applied
+          - package ID retained: com.ebedesigns.marketmint.controlcenter
+          - version code 11503 / version name 1.15.3
+          - release unit tests passed
+          - Android release lint passed
+          - debug and unsigned release APKs compiled
+          - unsigned release APK zip-aligned
+          - package metadata verified
+          - Android emulator interaction QA runs in the next step
+          EOF
+
+      - name: Android 15 menu interaction QA
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 35
+          arch: x86_64
+          target: default
+          profile: pixel_6
+          disable-animations: true
+          emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim
+          script: |
+            set -euo pipefail
+            python3 mobile-control-android/mock_marketmint_server.py > release/mock-server.log 2>&1 &
+            server_pid=$!
+            trap 'kill "$server_pid" 2>/dev/null || true' EXIT
+            for attempt in $(seq 1 30); do
+              if curl -fsS http://127.0.0.1:8765/api/mobile-control/ping | grep -q '"ok": true'; then break; fi
+              sleep 1
+            done
+            curl -fsS http://127.0.0.1:8765/api/mobile-control/ping | grep -q '"ok": true'
+            python3 mobile-control-android/emulator_menu_test.py
+
+      - name: Finalize unsigned release kit checksums
+        if: always()
+        run: |
+          set -euo pipefail
+          if test -f release/MENU-QA-PASSED.txt; then
+            cat release/MENU-QA-PASSED.txt >> release/BUILD-REPORT.txt
+          fi
+          find release -maxdepth 1 -type f ! -name 'SHA256SUMS.txt' -print0 \
+            | sort -z \
+            | xargs -0 sha256sum > release/SHA256SUMS.txt
+
+      - name: Upload v1.15.3 unsigned build and menu QA evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: MarketMint-Mobile-v1.15.3-Unsigned-Build-and-Menu-QA
+          path: release/
+          if-no-files-found: error
+          retention-days: 2
