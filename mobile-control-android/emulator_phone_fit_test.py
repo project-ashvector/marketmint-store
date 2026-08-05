@@ -11,9 +11,9 @@ RELEASE = Path('release')
 RELEASE.mkdir(exist_ok=True)
 
 PROFILES = [
-    ('compact-320', 640, 1136, 320, 320),
-    ('standard-360', 720, 1280, 320, 360),
-    ('large-412', 824, 1830, 320, 412),
+    ('compact-320', 640, 1136, 320, 320, 2.0),
+    ('standard-360', 720, 1280, 320, 360, 2.0),
+    ('large-412', 824, 1830, 320, 412, 2.0),
 ]
 
 
@@ -36,7 +36,6 @@ def suppress_system_dialogs():
         ('settings', 'put', 'global', 'show_first_crash_dialog', '0'),
         ('settings', 'put', 'global', 'show_restart_in_crash_dialog', '0'),
         ('am', 'force-stop', 'com.android.settings'),
-        ('input', 'keyevent', 'KEYCODE_BACK'),
     ):
         adb('shell', *command, check=False)
 
@@ -54,12 +53,14 @@ def clear_events():
 
 def events():
     result = adb('shell', 'run-as', PACKAGE, 'cat', EVENT_FILE, check=False)
-    return [line.strip() for line in (result.stdout or '').splitlines() if line.strip()]
+    values = [line.strip() for line in (result.stdout or '').splitlines() if line.strip()]
+    (RELEASE / 'phone-fit-private-events.txt').write_text('\n'.join(values) + ('\n' if values else ''))
+    return values
 
 
 def parse_layout(event):
     parts = event.split('|')
-    if len(parts) != 7 or parts[0] != 'LAYOUT':
+    if len(parts) != 8 or parts[0] != 'LAYOUT':
         raise ValueError(event)
     return {
         'viewport': int(parts[1]),
@@ -68,10 +69,11 @@ def parse_layout(event):
         'main': int(parts[4]),
         'header': int(parts[5]),
         'oversized': int(parts[6]),
+        'dpr': float(parts[7]),
     }
 
 
-def wait_layout(expected_width, timeout=75):
+def wait_layout(expected_width, timeout=90):
     deadline = time.time() + timeout
     last = []
     while time.time() < deadline:
@@ -87,8 +89,8 @@ def wait_layout(expected_width, timeout=75):
                 return layout, last
         time.sleep(0.8)
     raise RuntimeError(
-        f'Timed out waiting for LAYOUT near {expected_width}px. '
-        f'Last events: {last[-30:]}'
+        f'Timed out waiting for true mobile LAYOUT near {expected_width}px. '
+        f'Last events: {last[-40:]}'
     )
 
 
@@ -100,7 +102,7 @@ def resolve_activity():
     return lines[-1]
 
 
-def launch_profile(label, physical_width, physical_height, density, expected_css_width):
+def launch_profile(label, physical_width, physical_height, density, expected_css_width, expected_dpr):
     print(f'\n=== PHONE FIT PROFILE {label} ===', flush=True)
     adb('shell', 'wm', 'size', f'{physical_width}x{physical_height}')
     adb('shell', 'wm', 'density', str(density))
@@ -122,6 +124,10 @@ def launch_profile(label, physical_width, physical_height, density, expected_css
 
     tolerance = 2
     failures = []
+    if abs(layout['viewport'] - expected_css_width) > 8:
+        failures.append(f"viewport {layout['viewport']} was not near expected {expected_css_width}")
+    if abs(layout['dpr'] - expected_dpr) > 0.15:
+        failures.append(f"devicePixelRatio {layout['dpr']} was not near expected {expected_dpr}")
     if layout['document'] > layout['viewport'] + tolerance:
         failures.append(f"document {layout['document']} > viewport {layout['viewport']}")
     if layout['body'] > layout['viewport'] + tolerance:
@@ -137,9 +143,9 @@ def launch_profile(label, physical_width, physical_height, density, expected_css
         raise RuntimeError(f'{label} phone-fit failed: ' + '; '.join(failures))
 
     print(
-        f"PASS {label}: viewport={layout['viewport']} document={layout['document']} "
-        f"body={layout['body']} main={layout['main']} header={layout['header']} "
-        f"oversized={layout['oversized']}",
+        f"PASS {label}: viewport={layout['viewport']} dpr={layout['dpr']} "
+        f"document={layout['document']} body={layout['body']} main={layout['main']} "
+        f"header={layout['header']} oversized={layout['oversized']}",
         flush=True,
     )
     return layout, all_events
@@ -151,16 +157,17 @@ def main():
         for profile in PROFILES:
             label = profile[0]
             layout, all_events = launch_profile(*profile)
-            reports.append((label, layout, all_events[-20:]))
+            reports.append((label, layout, all_events[-25:]))
     finally:
         adb('shell', 'wm', 'size', 'reset', check=False)
         adb('shell', 'wm', 'density', 'reset', check=False)
 
     lines = [
         'MarketMint Mobile v1.15.3 phone-fit QA passed:',
-        '- tested compact 320px CSS viewport',
-        '- tested standard 360px CSS viewport',
-        '- tested large 412px CSS viewport',
+        '- WebView used true logical phone CSS widths instead of physical-pixel desktop widths',
+        '- tested compact 320px CSS viewport at DPR 2.0',
+        '- tested standard 360px CSS viewport at DPR 2.0',
+        '- tested large 412px CSS viewport at DPR 2.0',
         '- document/body/main/header stayed within every viewport',
         '- zero non-scrollable oversized elements were reported',
         '- intentionally wide tables/navigation rails remain contained in scroll wrappers',
@@ -170,7 +177,7 @@ def main():
         lines.append(f'{label}: {layout}')
         lines.append(f'{label} event tail: {tail}')
     (RELEASE / 'PHONE-FIT-QA-PASSED.txt').write_text('\n'.join(lines) + '\n')
-    print('ALL MULTI-SIZE PHONE-FIT CHECKS PASSED', flush=True)
+    print('ALL TRUE-MOBILE MULTI-SIZE PHONE-FIT CHECKS PASSED', flush=True)
 
 
 if __name__ == '__main__':
