@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 from pathlib import Path
+import os
 import subprocess
 import time
 
-PACKAGE = 'com.ebedesigns.marketmint.controlcenter'
+PACKAGE = os.environ.get('MARKETMINT_QA_PACKAGE', 'com.ebedesigns.marketmint.controlcenter')
+QA_ACTIVITY = os.environ.get('MARKETMINT_QA_ACTIVITY', '').strip()
 TOKEN = '0123456789abcdef0123456789abcdef'
 SERVER = 'http://10.0.2.2:8765'
 EVENT_FILE = 'files/drawer-qa-events.txt'
@@ -90,20 +92,31 @@ def wait_layout(expected_width, timeout=90):
         time.sleep(0.8)
     raise RuntimeError(
         f'Timed out waiting for true mobile LAYOUT near {expected_width}px. '
-        f'Last events: {last[-40:]}'
+        f'Package={PACKAGE} activity={QA_ACTIVITY}. Last events: {last[-40:]}'
     )
 
 
 def resolve_activity():
-    result = adb('shell', 'cmd', 'package', 'resolve-activity', '--brief', PACKAGE)
-    lines = [line.strip() for line in (result.stdout or '').splitlines() if line.strip()]
+    if QA_ACTIVITY:
+        return QA_ACTIVITY
+    result = adb(
+        'shell', 'cmd', 'package', 'resolve-activity', '--brief',
+        '-a', 'android.intent.action.MAIN',
+        '-c', 'android.intent.category.LAUNCHER',
+        PACKAGE,
+    )
+    lines = [
+        line.strip() for line in (result.stdout or '').splitlines()
+        if line.strip() and 'No activity found' not in line
+    ]
     if not lines:
-        raise RuntimeError(f'Could not resolve MarketMint activity: {result.stdout}')
+        raise RuntimeError(f'Could not resolve MarketMint activity for {PACKAGE}: {result.stdout}')
     return lines[-1]
 
 
 def launch_profile(label, physical_width, physical_height, density, expected_css_width, expected_dpr):
     print(f'\n=== PHONE FIT PROFILE {label} ===', flush=True)
+    print(f'QA package={PACKAGE} activity={resolve_activity()}', flush=True)
     adb('shell', 'wm', 'size', f'{physical_width}x{physical_height}')
     adb('shell', 'wm', 'density', str(density))
     adb('shell', 'input', 'keyevent', 'KEYCODE_WAKEUP', check=False)
@@ -164,6 +177,8 @@ def main():
 
     lines = [
         'MarketMint Mobile v1.15.3 phone-fit QA passed:',
+        f'- tested installed debug package: {PACKAGE}',
+        f'- tested launcher component: {resolve_activity()}',
         '- WebView used true logical phone CSS widths instead of physical-pixel desktop widths',
         '- tested compact 320px CSS viewport at DPR 2.0',
         '- tested standard 360px CSS viewport at DPR 2.0',
