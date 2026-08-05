@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - build/marketmint-mobile-v1.15.2-install-fix
-  pull_request:
-    branches:
-      - main
   workflow_dispatch:
 
 permissions:
@@ -19,25 +16,28 @@ jobs:
       - name: Check out isolated mobile branch
         uses: actions/checkout@v4
 
-      - name: Reconstruct and verify v1.15.2 Android source
+      - name: Reconstruct proven Android source bundles
         run: |
           set -euo pipefail
-          mkdir -p mobile-build/project mobile-build/staging
-          cat mobile-control-android/v1152-source-parts/part-* > mobile-build/staging/source.tar.gz.b64
-          echo 'a4eec75a225a09ff459199e300ab6d294db5c45440f11de88d8502355d3fceb9  mobile-build/staging/source.tar.gz.b64' | sha256sum -c -
+          mkdir -p mobile-build/project
+          base64 --decode mobile-control-android/source.fixed.b64 | tar -xzf - -C mobile-build/project
+          base64 --decode mobile-control-android/overrides.v115.b64 | tar -xzf - -C mobile-build/project
+          base64 --decode mobile-control-android/overrides.v1151.b64 | tar -xzf - -C mobile-build/project
+
+      - name: Apply install-safe identity
+        run: |
           python3 - <<'PY'
           from pathlib import Path
-          import base64
-          src = Path('mobile-build/staging/source.tar.gz.b64').read_bytes()
-          Path('mobile-build/staging/source.tar.gz').write_bytes(base64.b64decode(src, validate=True))
+          import re
+          path = Path('mobile-build/project/app/build.gradle')
+          text = path.read_text()
+          text = re.sub(r"applicationId\s+'[^']+'", "applicationId 'com.ebedesigns.marketmint.controlcenter'", text)
+          text = re.sub(r'versionCode\s+\d+', 'versionCode 11502', text)
+          text = re.sub(r"versionName\s+'[^']+'", "versionName '1.15.2'", text)
+          text = re.sub(r'\n\s{4}signingConfigs \{.*?\n\s{4}\}\n', '\n', text, flags=re.S)
+          text = re.sub(r'^\s*signingConfig signingConfigs\.release\s*$', '', text, flags=re.M)
+          path.write_text(text)
           PY
-          echo '6887ad2347b624642d236c87c787a92404a36c886db7382e8ec8cf0dbb4885d2  mobile-build/staging/source.tar.gz' | sha256sum -c -
-          tar -tzf mobile-build/staging/source.tar.gz >/dev/null
-          tar -xzf mobile-build/staging/source.tar.gz -C mobile-build/project
-
-      - name: Confirm install-safe identity
-        run: |
-          set -euo pipefail
           grep -F "applicationId 'com.ebedesigns.marketmint.controlcenter'" mobile-build/project/app/build.gradle
           grep -E 'versionCode +11502' mobile-build/project/app/build.gradle
           grep -F "versionName '1.15.2'" mobile-build/project/app/build.gradle
@@ -59,7 +59,7 @@ jobs:
         with:
           gradle-version: '8.13'
 
-      - name: Run tests, lint, and unsigned release build
+      - name: Run tests, lint, and build unsigned release
         working-directory: mobile-build/project
         run: gradle --no-daemon testReleaseUnitTest lintRelease assembleRelease
 
@@ -70,9 +70,11 @@ jobs:
           unsigned='mobile-build/project/app/build/outputs/apk/release/app-release-unsigned.apk'
           aligned='release/MarketMint-Mobile-Control-v1.15.2-aligned-unsigned.apk'
           "$ANDROID_HOME/build-tools/35.0.0/zipalign" -p -f 4 "$unsigned" "$aligned"
+          "$ANDROID_HOME/build-tools/35.0.0/zipalign" -c -v 4 "$aligned"
           cp "$ANDROID_HOME/build-tools/35.0.0/lib/apksigner.jar" release/apksigner.jar
           "$ANDROID_HOME/build-tools/35.0.0/aapt2" dump badging "$aligned" > release/PACKAGE-METADATA.txt
-          sha256sum "$aligned" release/apksigner.jar > release/SHA256SUMS.txt
+          grep -F "package: name='com.ebedesigns.marketmint.controlcenter' versionCode='11502' versionName='1.15.2'" release/PACKAGE-METADATA.txt
+          sha256sum "$aligned" release/apksigner.jar release/PACKAGE-METADATA.txt > release/SHA256SUMS.txt
 
       - name: Upload unsigned build kit
         uses: actions/upload-artifact@v4
