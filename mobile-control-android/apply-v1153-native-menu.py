@@ -77,6 +77,17 @@ native_methods = '''    private void installNativeMenuTarget() {
         root.addView(target, params);
         nativeMenuTarget = target;
         updateNativeMenuState(false);
+        target.post(this::reportNativeMenuBounds);
+    }
+
+    private void reportNativeMenuBounds() {
+        if (nativeMenuTarget == null || nativeMenuTarget.getWidth() <= 0 || nativeMenuTarget.getHeight() <= 0) return;
+        int[] location = new int[2];
+        nativeMenuTarget.getLocationOnScreen(location);
+        recordDrawerEvent(
+            "NATIVE|BOUNDS|" + location[0] + "|" + location[1] + "|"
+                + nativeMenuTarget.getWidth() + "|" + nativeMenuTarget.getHeight()
+        );
     }
 
     private void updateNativeMenuState(boolean open) {
@@ -115,6 +126,7 @@ native_methods = '''    private void installNativeMenuTarget() {
         webView.evaluateJavascript(script, value -> {
             boolean opened = value != null && value.contains("OPEN");
             updateNativeMenuState(opened);
+            reportNativeMenuBounds();
             Log.i("MarketMintDrawer", opened ? "NATIVE|RESULT|OPEN" : "NATIVE|RESULT|CLOSED");
         });
     }
@@ -130,6 +142,7 @@ page_finished_marker = '''            public void onPageFinished(WebView view, S
 page_finished_replacement = '''            public void onPageFinished(WebView view, String url) {
                 if (pageProgress != null) pageProgress.setVisibility(View.GONE);
                 if (nativeMenuTarget != null) nativeMenuTarget.bringToFront();
+                reportNativeMenuBounds();
                 Log.i("MarketMintDrawer", "PAGE|FINISHED|" + url);
                 injectMobileExperience();'''
 if page_finished_marker not in text:
@@ -168,6 +181,8 @@ text = text.replace(bridge_marker, bridge_replacement, 1)
 for expected in (
     'private View nativeMenuTarget;',
     'private void toggleNativeDrawer()',
+    'private void reportNativeMenuBounds()',
+    'NATIVE|BOUNDS|',
     'NATIVE|REQUEST|OPEN',
     'NATIVE|RESULT|OPEN',
     'target.setContentDescription("Open navigation")',
@@ -179,4 +194,4 @@ for expected in (
         raise SystemExit(f'Missing native menu change: {expected}')
 
 path.write_text(text)
-print('Added native Android hamburger bridge and debug QA launch override')
+print('Added native Android hamburger bridge, exact bounds reporting, and debug QA launch override')
