@@ -24,10 +24,38 @@ fi
 
 apk='mobile-build/project/app/build/outputs/apk/debug/app-debug.apk'
 test -f "$apk"
-adb install -r "$apk"
-adb shell cmd package resolve-activity --brief com.ebedesigns.marketmint.controlcenter \
+
+aapt2="${ANDROID_HOME}/build-tools/35.0.0/aapt2"
+test -x "$aapt2"
+"$aapt2" dump badging "$apk" > release/DEBUG-PACKAGE-METADATA.txt
+
+debug_package=$(sed -n "s/^package: name='\([^']*\)'.*/\1/p" release/DEBUG-PACKAGE-METADATA.txt | head -n 1)
+debug_activity=$(sed -n "s/^launchable-activity: name='\([^']*\)'.*/\1/p" release/DEBUG-PACKAGE-METADATA.txt | head -n 1)
+
+test -n "$debug_package"
+test -n "$debug_activity"
+case "$debug_activity" in
+  .*) debug_activity="${debug_package}${debug_activity}" ;;
+  *.*) : ;;
+  *) debug_activity="${debug_package}.${debug_activity}" ;;
+esac
+debug_component="${debug_package}/${debug_activity}"
+
+cat > release/DEBUG-PACKAGE.env <<EOF
+MARKETMINT_QA_PACKAGE=${debug_package}
+MARKETMINT_QA_ACTIVITY=${debug_component}
+EOF
+
+printf 'Debug package: %s\nDebug activity: %s\nDebug component: %s\n' \
+  "$debug_package" "$debug_activity" "$debug_component" \
   | tee release/RESOLVED-ACTIVITY.txt
-grep -v 'No activity found' release/RESOLVED-ACTIVITY.txt | grep -q '/'
+
+adb install -r "$apk"
+adb shell pm path "$debug_package" | tee -a release/RESOLVED-ACTIVITY.txt
+grep -q '^package:' release/RESOLVED-ACTIVITY.txt
+
+export MARKETMINT_QA_PACKAGE="$debug_package"
+export MARKETMINT_QA_ACTIVITY="$debug_component"
 
 python3 mobile-control-android/emulator_phone_fit_test.py
 python3 mobile-control-android/emulator_menu_test.py
