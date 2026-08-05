@@ -42,22 +42,24 @@ jobs:
           test -f mobile-build/project/app/build.gradle
           test -f mobile-build/project/app/src/main/java/com/ebedesigns/marketmint/mobile/MainActivity.java
 
-      - name: Apply v1.15.3 drawer controller, QA reporting, and native menu bridge
+      - name: Apply v1.15.3 drawer controller, native bridge, and private QA events
         run: |
           set -euo pipefail
           python3 mobile-control-android/apply-v1153-menu-fix.py
           python3 mobile-control-android/apply-v1153-drawer-probe.py
           python3 mobile-control-android/apply-v1153-native-menu.py
+          python3 mobile-control-android/apply-v1153-private-qa-events.py
           source='mobile-build/project/app/src/main/java/com/ebedesigns/marketmint/mobile/MainActivity.java'
           grep -F 'MOBILE_VERSION = "1.15.3"' "$source"
           grep -F 'window.__marketMintMobileToggleDrawer=toggleDrawer' "$source"
           grep -F 'private void toggleNativeDrawer()' "$source"
           grep -F 'NATIVE|REQUEST|OPEN' "$source"
           grep -F 'NATIVE|RESULT|OPEN' "$source"
+          grep -F 'NATIVE|TARGET|CLOSE' "$source"
+          grep -F 'openFileOutput("drawer-qa-events.txt", MODE_APPEND)' "$source"
           grep -F 'target.setContentDescription("Open navigation")' "$source"
           grep -F "reportDrawer('NAV|GROUP')" "$source"
           grep -F "reportDrawer('NAV|DESTINATION')" "$source"
-          grep -F 'Log.i("MarketMintDrawer"' "$source"
           grep -F 'transform:translate3d(0,0,0)!important' "$source"
           grep -F "applicationId 'com.ebedesigns.marketmint.controlcenter'" mobile-build/project/app/build.gradle
           grep -E 'versionCode +11503' mobile-build/project/app/build.gradle
@@ -108,7 +110,8 @@ jobs:
           - repeatable WebView drawer controller applied
           - native Android hamburger bridge added above the WebView
           - native bridge directly forces the existing drawer open or closed
-          - live drawer bounds/state reporting added for physical-tap QA
+          - app-private drawer events added for deterministic QA
+          - no UIAutomator or logcat dependency in menu verification
           - package ID retained: com.ebedesigns.marketmint.controlcenter
           - version code 11503 / version name 1.15.3
           - release unit tests passed
@@ -116,7 +119,7 @@ jobs:
           - debug and unsigned release APKs compiled
           - unsigned release APK zip-aligned
           - package metadata verified
-          - Android emulator native + WebView interaction QA runs next
+          - Android physical interaction QA runs next
           EOF
 
       - name: Android physical native-menu and WebView-drawer QA
@@ -125,7 +128,7 @@ jobs:
           api-level: 30
           arch: x86_64
           target: default
-          profile: pixel_6
+          profile: pixel_2
           disable-animations: true
           emulator-boot-timeout: 600
           emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim
