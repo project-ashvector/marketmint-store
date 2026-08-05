@@ -42,15 +42,19 @@ jobs:
           test -f mobile-build/project/app/build.gradle
           test -f mobile-build/project/app/src/main/java/com/ebedesigns/marketmint/mobile/MainActivity.java
 
-      - name: Apply v1.15.3 repeatable drawer controller and QA reporting
+      - name: Apply v1.15.3 drawer controller, QA reporting, and native menu bridge
         run: |
           set -euo pipefail
           python3 mobile-control-android/apply-v1153-menu-fix.py
           python3 mobile-control-android/apply-v1153-drawer-probe.py
+          python3 mobile-control-android/apply-v1153-native-menu.py
           source='mobile-build/project/app/src/main/java/com/ebedesigns/marketmint/mobile/MainActivity.java'
           grep -F 'MOBILE_VERSION = "1.15.3"' "$source"
           grep -F 'window.__marketMintMobileToggleDrawer=toggleDrawer' "$source"
-          grep -F "reportDrawer('CLICK|MENU')" "$source"
+          grep -F 'private void toggleNativeDrawer()' "$source"
+          grep -F 'NATIVE|REQUEST|OPEN' "$source"
+          grep -F 'NATIVE|RESULT|OPEN' "$source"
+          grep -F 'target.setContentDescription("Open navigation")' "$source"
           grep -F "reportDrawer('NAV|GROUP')" "$source"
           grep -F "reportDrawer('NAV|DESTINATION')" "$source"
           grep -F 'Log.i("MarketMintDrawer"' "$source"
@@ -101,8 +105,10 @@ jobs:
           cat > release/BUILD-REPORT.txt <<'EOF'
           MarketMint Mobile v1.15.3 build checks completed:
           - exact proven v1.15.1 source reconstructed with two SHA-256 verified override bundles
-          - repeatable drawer controller applied
-          - live drawer bounds/state reporting added for Android physical-tap QA
+          - repeatable WebView drawer controller applied
+          - native Android hamburger bridge added above the WebView
+          - native bridge directly forces the existing drawer open or closed
+          - live drawer bounds/state reporting added for physical-tap QA
           - package ID retained: com.ebedesigns.marketmint.controlcenter
           - version code 11503 / version name 1.15.3
           - release unit tests passed
@@ -110,17 +116,18 @@ jobs:
           - debug and unsigned release APKs compiled
           - unsigned release APK zip-aligned
           - package metadata verified
-          - Android emulator physical-tap QA runs in the next step
+          - Android emulator native + WebView interaction QA runs next
           EOF
 
-      - name: Android 15 physical menu interaction QA
+      - name: Android physical native-menu and WebView-drawer QA
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 35
+          api-level: 30
           arch: x86_64
           target: default
           profile: pixel_6
           disable-animations: true
+          emulator-boot-timeout: 600
           emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim
           script: sh mobile-control-android/run_emulator_menu_qa.sh
 
