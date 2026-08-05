@@ -22,5 +22,5 @@ if [ "$ready" -ne 1 ]; then
   exit 1
 fi
 
-python3 mobile-control-android/emulator_menu_test.py
 python3 mobile-control-android/emulator_phone_fit_test.py
+python3 mobile-control-android/emulator_menu_test.py
