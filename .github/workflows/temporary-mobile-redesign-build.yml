@@ -19,13 +19,21 @@ jobs:
       - name: Check out isolated mobile branch
         uses: actions/checkout@v4
 
-      - name: Reconstruct verified v1.15.2 Android source
+      - name: Reconstruct and verify v1.15.2 Android source
         run: |
           set -euo pipefail
-          mkdir -p mobile-build/project
-          cat mobile-control-android/v1152-source-parts/part-* \
-            | base64 --decode \
-            | tar -xzf - -C mobile-build/project
+          mkdir -p mobile-build/project mobile-build/staging
+          cat mobile-control-android/v1152-source-parts/part-* > mobile-build/staging/source.tar.gz.b64
+          echo 'a4eec75a225a09ff459199e300ab6d294db5c45440f11de88d8502355d3fceb9  mobile-build/staging/source.tar.gz.b64' | sha256sum -c -
+          python3 - <<'PY'
+          from pathlib import Path
+          import base64
+          src = Path('mobile-build/staging/source.tar.gz.b64').read_bytes()
+          Path('mobile-build/staging/source.tar.gz').write_bytes(base64.b64decode(src, validate=True))
+          PY
+          echo '6887ad2347b624642d236c87c787a92404a36c886db7382e8ec8cf0dbb4885d2  mobile-build/staging/source.tar.gz' | sha256sum -c -
+          tar -tzf mobile-build/staging/source.tar.gz >/dev/null
+          tar -xzf mobile-build/staging/source.tar.gz -C mobile-build/project
 
       - name: Confirm install-safe identity
         run: |
