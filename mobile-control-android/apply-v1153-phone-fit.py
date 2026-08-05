@@ -4,6 +4,16 @@ import re
 path = Path('mobile-build/project/app/src/main/java/com/ebedesigns/marketmint/mobile/MainActivity.java')
 text = path.read_text()
 
+webview_replacements = {
+    '        settings.setUseWideViewPort(false);': '        settings.setUseWideViewPort(true);',
+    '        settings.setLoadWithOverviewMode(false);': '        settings.setLoadWithOverviewMode(true);',
+    '        webView.setInitialScale(100);': '        webView.setInitialScale(0);',
+}
+for old, new in webview_replacements.items():
+    if old not in text:
+        raise SystemExit(f'Could not find WebView scaling line: {old}')
+    text = text.replace(old, new, 1)
+
 phone_css = r'''
         /* v1.15.3 phone-fit layer: keep desktop-sized content inside the Android viewport. */
         body.marketmint-mobile-app,
@@ -235,6 +245,7 @@ script_replacement = '''            window.__marketMintMobileApplied=true;
               const main=document.querySelector('.main');
               const mainWidth=Math.round(main?.scrollWidth||0);
               const headerWidth=Math.round(document.getElementById('mmMobileHeader')?.scrollWidth||0);
+              const dpr=Math.round((window.devicePixelRatio||1)*100)/100;
               const allowed='.table-panel,.control-table-wrap,.activity-log,.responsive-table,.table-wrap,.top-actions,.context-nav,.appearance-tabs,.safety-tabs,.sidebar';
               let oversized=0;
               document.querySelectorAll('body.marketmint-mobile-app .main *').forEach(node=>{
@@ -244,7 +255,7 @@ script_replacement = '''            window.__marketMintMobileApplied=true;
                 const rect=node.getBoundingClientRect();
                 if(rect.width>viewport+2||rect.right>viewport+2||rect.left<-2)oversized+=1;
               });
-              reportDrawer(['LAYOUT',viewport,doc,bodyWidth,mainWidth,headerWidth,oversized].join('|'));
+              reportDrawer(['LAYOUT',viewport,doc,bodyWidth,mainWidth,headerWidth,oversized,dpr].join('|'));
             };
             window.__marketMintMobileReportLayout=reportPhoneLayout;
             if(window.__marketMintMobileLayoutResizeHandler){
@@ -263,14 +274,17 @@ if script_marker not in text:
 text = text.replace(script_marker, script_replacement, 1)
 
 for expected in (
+    'settings.setUseWideViewPort(true);',
+    'settings.setLoadWithOverviewMode(true);',
+    'webView.setInitialScale(0);',
     'v1.15.3 phone-fit layer',
     'body.marketmint-mobile-app .main :where(div,section,article,aside,header,footer,form,fieldset,label)',
     '@media(max-width:430px)',
     'window.__marketMintMobileReportLayout=reportPhoneLayout',
-    "reportDrawer(['LAYOUT',viewport,doc,bodyWidth,mainWidth,headerWidth,oversized].join('|'))",
+    "reportDrawer(['LAYOUT',viewport,doc,bodyWidth,mainWidth,headerWidth,oversized,dpr].join('|'))",
 ):
     if expected not in text:
         raise SystemExit(f'Missing phone-fit change: {expected}')
 
 path.write_text(text)
-print('Applied comprehensive phone-fit CSS and layout overflow reporting')
+print('Applied true mobile WebView scaling, comprehensive phone-fit CSS, and layout overflow reporting')
