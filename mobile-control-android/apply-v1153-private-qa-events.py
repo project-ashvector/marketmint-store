@@ -67,3 +67,4 @@ for expected in (
 path.write_text(text)
 print('Drawer events now persist to debug app-private storage')
 runpy.run_path('mobile-control-android/apply-v1153-phone-fit.py', run_name='__main__')
+runpy.run_path('mobile-control-android/apply-v1153-debug-qa-actions.py', run_name='__main__')
