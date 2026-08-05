@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 from pathlib import Path
+import os
 import subprocess
 import time
 
-PACKAGE = 'com.ebedesigns.marketmint.controlcenter'
+PACKAGE = os.environ.get('MARKETMINT_QA_PACKAGE', 'com.ebedesigns.marketmint.controlcenter')
+QA_ACTIVITY = os.environ.get('MARKETMINT_QA_ACTIVITY', '').strip()
 TOKEN = '0123456789abcdef0123456789abcdef'
 SERVER = 'http://10.0.2.2:8765'
 EVENT_FILE = 'files/drawer-qa-events.txt'
@@ -54,14 +56,27 @@ def wait_event(label, predicate, after=0, timeout=90):
                 return event, index, events
         time.sleep(0.8)
     screenshot(f'FAIL-{label}.png')
-    raise RuntimeError(f'Timed out waiting for {label}. Last events: {last_events[-50:]}')
+    raise RuntimeError(
+        f'Timed out waiting for {label}. Package={PACKAGE} activity={QA_ACTIVITY}. '
+        f'Last events: {last_events[-50:]}'
+    )
 
 
 def resolve_activity():
-    result = adb('shell', 'cmd', 'package', 'resolve-activity', '--brief', PACKAGE)
-    lines = [line.strip() for line in (result.stdout or '').splitlines() if line.strip()]
+    if QA_ACTIVITY:
+        return QA_ACTIVITY
+    result = adb(
+        'shell', 'cmd', 'package', 'resolve-activity', '--brief',
+        '-a', 'android.intent.action.MAIN',
+        '-c', 'android.intent.category.LAUNCHER',
+        PACKAGE,
+    )
+    lines = [
+        line.strip() for line in (result.stdout or '').splitlines()
+        if line.strip() and 'No activity found' not in line
+    ]
     if not lines:
-        raise RuntimeError(f'Could not resolve launcher activity: {result.stdout}')
+        raise RuntimeError(f'Could not resolve launcher activity for {PACKAGE}: {result.stdout}')
     return lines[-1]
 
 
@@ -83,15 +98,14 @@ def latest_matching(events, values, start=0):
 
 
 def main():
-    apk = 'mobile-build/project/app/build/outputs/apk/debug/app-debug.apk'
-    adb('install', '-r', apk)
     adb('shell', 'input', 'keyevent', 'KEYCODE_WAKEUP', check=False)
     adb('shell', 'wm', 'dismiss-keyguard', check=False)
     adb('shell', 'am', 'force-stop', PACKAGE)
     clear_events()
 
     activity = resolve_activity()
-    print('Resolved activity:', activity, flush=True)
+    print(f'QA package: {PACKAGE}', flush=True)
+    print(f'Resolved activity: {activity}', flush=True)
     adb(
         'shell', 'am', 'start', '-W', '-n', activity,
         '--es', 'marketmint_qa_url', SERVER,
@@ -172,6 +186,8 @@ def main():
     final_events = drawer_events()
     (RELEASE / 'MENU-QA-PASSED.txt').write_text(
         'MarketMint Mobile v1.15.3 Android menu QA passed:\n'
+        f'- tested installed debug package: {PACKAGE}\n'
+        f'- tested launcher component: {activity}\n'
         '- MarketMint page finished loading\n'
         '- native Android menu target was created and measured\n'
         '- debug-only QA action invoked nativeMenuTarget.performClick()\n'
