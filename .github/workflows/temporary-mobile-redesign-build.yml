@@ -1,29 +1,81 @@
-name: Temporary MarketMint Mobile Redesign
+name: Build MarketMint Mobile v1.15.2 Install Fix
 
 on:
-  pull_request:
-    branches: [main]
-    paths:
-      - 'mobile-control-android/**'
-      - '.github/workflows/temporary-mobile-redesign-build.yml'
+  push:
+    branches:
+      - build/marketmint-mobile-v1.15.2-install-fix
   workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
-  export-source:
+  build-unsigned:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Decode Android project
+      - name: Check out isolated mobile branch
+        uses: actions/checkout@v4
+
+      - name: Reconstruct v1.15.1 Android source
         run: |
           set -euo pipefail
-          mkdir -p export/project
-          base64 --decode mobile-control-android/source.fixed.b64 | tar -xzf - -C export/project
-      - name: Upload decoded source
+          mkdir -p mobile-build/project
+          base64 --decode mobile-control-android/source.fixed.b64 | tar -xzf - -C mobile-build/project
+          base64 --decode mobile-control-android/overrides.v115.b64 | tar -xzf - -C mobile-build/project
+          base64 --decode mobile-control-android/overrides.v1151.b64 | tar -xzf - -C mobile-build/project
+
+      - name: Apply install-safe package and version
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          path = Path('mobile-build/project/app/build.gradle')
+          text = path.read_text()
+          text = text.replace("applicationId 'com.ebedesigns.marketmint.mobile'", "applicationId 'com.ebedesigns.marketmint.controlcenter'")
+          text = re.sub(r'versionCode\s+\d+', 'versionCode 11502', text)
+          text = re.sub(r"versionName\s+'[^']+'", "versionName '1.15.2'", text)
+          text = re.sub(r'\n\s{4}signingConfigs \{.*?\n\s{4}\}\n', '\n', text, flags=re.S)
+          text = re.sub(r'^\s*signingConfig signingConfigs\.release\s*$', '', text, flags=re.M)
+          path.write_text(text)
+          print(path.read_text())
+          PY
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install Android build tools
+        run: sdkmanager 'platforms;android-35' 'build-tools;35.0.0'
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.13'
+
+      - name: Run tests, lint, and unsigned release build
+        working-directory: mobile-build/project
+        run: gradle --no-daemon testReleaseUnitTest lintRelease assembleRelease
+
+      - name: Align APK and export signing tools
+        run: |
+          set -euo pipefail
+          mkdir -p release
+          unsigned='mobile-build/project/app/build/outputs/apk/release/app-release-unsigned.apk'
+          aligned='release/MarketMint-Mobile-Control-v1.15.2-aligned-unsigned.apk'
+          "$ANDROID_HOME/build-tools/35.0.0/zipalign" -p -f 4 "$unsigned" "$aligned"
+          cp "$ANDROID_HOME/build-tools/35.0.0/lib/apksigner.jar" release/apksigner.jar
+          "$ANDROID_HOME/build-tools/35.0.0/aapt2" dump badging "$aligned" > release/PACKAGE-METADATA.txt
+          sha256sum "$aligned" release/apksigner.jar > release/SHA256SUMS.txt
+
+      - name: Upload unsigned build kit
         uses: actions/upload-artifact@v4
         with:
-          name: MarketMint-Mobile-Source-v1.14.1
-          path: export/project/
+          name: MarketMint-Mobile-v1.15.2-Unsigned-Build-Kit
+          path: release/
+          if-no-files-found: error
           retention-days: 1
