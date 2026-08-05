@@ -32,7 +32,7 @@ def suppress_system_dialogs():
         ('settings', 'put', 'global', 'show_restart_in_crash_dialog', '0'),
         ('settings', 'put', 'secure', 'anr_show_background', '0'),
         ('am', 'force-stop', 'com.android.settings'),
-        ('input', 'keyevent', 'KEYCODE_BACK'),
+        ('am', 'broadcast', '-a', 'android.intent.action.CLOSE_SYSTEM_DIALOGS'),
     ]
     for command in commands:
         adb('shell', *command, check=False)
@@ -73,46 +73,53 @@ def wait_event(label, predicate, after=0, timeout=90):
     raise RuntimeError(f'Timed out waiting for {label}. Last events: {last_events[-40:]}')
 
 
-def parse_size(raw):
+def screen_size():
+    raw = adb('shell', 'wm', 'size').stdout or ''
     matches = re.findall(r'(\d+)x(\d+)', raw)
     if not matches:
         raise RuntimeError(f'Could not parse display size: {raw}')
     return tuple(map(int, matches[-1]))
 
 
-def screen_size():
-    return parse_size(adb('shell', 'wm', 'size').stdout or '')
+def parse_native_bounds(event):
+    parts = event.split('|')
+    if len(parts) != 6 or parts[:2] != ['NATIVE', 'BOUNDS']:
+        raise ValueError(event)
+    left, top, width, height = map(int, parts[2:])
+    if width <= 0 or height <= 0:
+        raise ValueError(event)
+    return left, top, width, height
 
 
-def density_scale():
-    raw = adb('shell', 'wm', 'density').stdout or ''
-    matches = re.findall(r'(\d+)', raw)
-    if not matches:
-        raise RuntimeError(f'Could not parse display density: {raw}')
-    density = int(matches[-1])
-    return density / 160.0
+def wait_native_bounds(after=0, timeout=60):
+    def usable(event):
+        if not event.startswith('NATIVE|BOUNDS|'):
+            return False
+        try:
+            parse_native_bounds(event)
+            return True
+        except ValueError:
+            return False
+
+    event, index, events = wait_event('native-hamburger-bounds', usable, after=after, timeout=timeout)
+    return parse_native_bounds(event), index, events
 
 
-def tap_native_menu(after_index):
-    scale = density_scale()
+def tap_native_menu(bounds, after_index):
+    left, top, width, height = bounds
     screen_width, screen_height = screen_size()
-    candidates_dp = [(29, 29), (24, 30), (34, 30), (29, 38)]
-    for attempt, (x_dp, y_dp) in enumerate(candidates_dp, start=1):
-        suppress_system_dialogs()
-        x = max(2, min(screen_width - 2, round(x_dp * scale)))
-        y = max(2, min(screen_height - 2, round(y_dp * scale)))
-        print(f'PHYSICAL TAP native hamburger attempt {attempt}: Android ({x},{y})', flush=True)
-        adb('shell', 'input', 'tap', str(x), str(y))
-        deadline = time.time() + 8
-        while time.time() < deadline:
-            events = drawer_events()
-            for index in range(after_index, len(events)):
-                if events[index] == 'NATIVE|REQUEST|OPEN':
-                    print(f'PASS: native hamburger received on attempt {attempt}', flush=True)
-                    return index, events
-            time.sleep(0.5)
-    screenshot('FAIL-native-hamburger-tap.png')
-    raise RuntimeError(f'Native hamburger did not receive any physical tap. Events: {drawer_events()[-40:]}')
+    x = max(2, min(screen_width - 2, left + width // 2))
+    y = max(2, min(screen_height - 2, top + height // 2))
+    suppress_system_dialogs()
+    print(f'PHYSICAL TAP exact native hamburger bounds {bounds}: Android ({x},{y})', flush=True)
+    adb('shell', 'input', 'tap', str(x), str(y))
+    _, request_index, events = wait_event(
+        'native-hamburger-request',
+        lambda event: event == 'NATIVE|REQUEST|OPEN',
+        after=after_index,
+        timeout=20,
+    )
+    return request_index, events
 
 
 def parse_bounds_event(event):
@@ -148,15 +155,21 @@ def wait_bounds(label, node_name, after=0, timeout=60):
     return (viewport_width, viewport_height, nodes[node_name]), index, events
 
 
-def tap_css_bounds(label, viewport_width, viewport_height, bounds):
+def tap_css_bounds(label, viewport_width, viewport_height, bounds, content_origin):
     screen_width, screen_height = screen_size()
+    origin_x, origin_y = content_origin
     left, top, width, height = bounds
-    x = round((left + width / 2.0) * screen_width / viewport_width)
-    y = round((top + height / 2.0) * screen_height / viewport_height)
+    scale = screen_width / viewport_width if viewport_width > 0 else 1.0
+    x = round(origin_x + (left + width / 2.0) * scale)
+    y = round(origin_y + (top + height / 2.0) * scale)
     x = max(2, min(screen_width - 2, x))
     y = max(2, min(screen_height - 2, y))
     suppress_system_dialogs()
-    print(f'PHYSICAL TAP {label}: Android ({x},{y})', flush=True)
+    print(
+        f'PHYSICAL TAP {label}: CSS center ({left + width / 2.0:.1f},{top + height / 2.0:.1f}) '
+        f'origin {content_origin} scale {scale:.3f} -> Android ({x},{y})',
+        flush=True,
+    )
     adb('shell', 'input', 'tap', str(x), str(y))
 
 
@@ -193,10 +206,12 @@ def main():
     _, target_open_index, _ = wait_event(
         'native-open-target-ready', lambda event: event == 'NATIVE|TARGET|OPEN', after=0
     )
+    native_bounds, native_bounds_index, _ = wait_native_bounds(after=0)
+    content_origin = (native_bounds[0], native_bounds[1])
     screenshot('MarketMint-Mobile-v1.15.3-menu-closed.png')
 
     before_menu_tap = len(drawer_events())
-    request_index, _ = tap_native_menu(before_menu_tap)
+    request_index, _ = tap_native_menu(native_bounds, before_menu_tap)
     _, open_index, open_events = wait_event(
         'drawer-opened',
         lambda event: event in ('STATE|OPEN', 'NATIVE|RESULT|OPEN'),
@@ -214,7 +229,7 @@ def main():
     screenshot('MarketMint-Mobile-v1.15.3-menu-open.png')
 
     before_group = len(drawer_events())
-    tap_css_bounds('Store group', operations_width, operations_height, operations_bounds)
+    tap_css_bounds('Store group', operations_width, operations_height, operations_bounds, content_origin)
     _, group_index, _ = wait_event('store-group-click', lambda event: event == 'NAV|GROUP', after=before_group)
     time.sleep(1.0)
     group_events = drawer_events()
@@ -232,7 +247,7 @@ def main():
     screenshot('MarketMint-Mobile-v1.15.3-store-group-open.png')
 
     before_catalog = len(drawer_events())
-    tap_css_bounds('Catalog destination', catalog_width, catalog_height, catalog_bounds)
+    tap_css_bounds('Catalog destination', catalog_width, catalog_height, catalog_bounds, content_origin)
     _, destination_index, _ = wait_event(
         'catalog-click', lambda event: event == 'NAV|DESTINATION', after=before_catalog
     )
@@ -262,7 +277,8 @@ def main():
         '- MarketMint page finished loading\n'
         '- app-private READY event recorded\n'
         '- native Open navigation target recorded\n'
-        '- Android physically tapped the native hamburger\n'
+        f'- exact native bounds used: {native_bounds}\n'
+        '- Android physically tapped the exact native hamburger center\n'
         '- native bridge requested OPEN and drawer opened\n'
         '- native target changed to Close navigation\n'
         '- Store group kept the drawer open\n'
@@ -271,7 +287,7 @@ def main():
         '- no MarketMint package crash found\n'
         f'- final private events: {final_events[-40:]}\n'
     )
-    print('ALL PRIVATE-EVENT MENU QA CHECKS PASSED', flush=True)
+    print('ALL EXACT-BOUNDS MENU QA CHECKS PASSED', flush=True)
 
 
 if __name__ == '__main__':
