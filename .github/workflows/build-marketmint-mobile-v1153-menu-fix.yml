@@ -117,17 +117,7 @@ jobs:
           profile: pixel_6
           disable-animations: true
           emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim
-          script: |
-            set -eu
-            python3 mobile-control-android/mock_marketmint_server.py > release/mock-server.log 2>&1 &
-            server_pid=$!
-            trap 'kill "$server_pid" 2>/dev/null || true' EXIT
-            for attempt in $(seq 1 30); do
-              if curl -fsS http://127.0.0.1:8765/api/mobile-control/ping | grep -q '"ok": true'; then break; fi
-              sleep 1
-            done
-            curl -fsS http://127.0.0.1:8765/api/mobile-control/ping | grep -q '"ok": true'
-            python3 mobile-control-android/emulator_menu_test.py
+          script: sh mobile-control-android/run_emulator_menu_qa.sh
 
       - name: Finalize unsigned release kit checksums
         if: always()
