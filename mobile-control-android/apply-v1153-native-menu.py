@@ -20,7 +20,7 @@ prefs_marker = '''        serverUrl = prefs.getString(PREF_SERVER, "");
         if (serverUrl.trim().isEmpty() || pairingToken.trim().isEmpty()) {'''
 prefs_replacement = '''        serverUrl = prefs.getString(PREF_SERVER, "");
         pairingToken = prefs.getString(PREF_TOKEN, "");
-        if (BuildConfig.DEBUG) {
+        if ((getApplicationInfo().flags & android.content.pm.ApplicationInfo.FLAG_DEBUGGABLE) != 0) {
             String qaUrl = getIntent().getStringExtra("marketmint_qa_url");
             String qaToken = getIntent().getStringExtra("marketmint_qa_token");
             if (qaUrl != null && !qaUrl.trim().isEmpty() && qaToken != null && !qaToken.trim().isEmpty()) {
@@ -172,6 +172,7 @@ for expected in (
     'NATIVE|RESULT|OPEN',
     'target.setContentDescription("Open navigation")',
     'marketmint_qa_url',
+    'FLAG_DEBUGGABLE',
     'PAGE|FINISHED|',
 ):
     if expected not in text:
